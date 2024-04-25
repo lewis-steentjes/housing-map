@@ -33,7 +33,7 @@ export default function FilterSlider(props: Props) {
           min={min}
           max={max}
           defaultValue={value}
-          className="range range-primary bg-gray-700"
+          className="range range-primary bg-accent"
           step={step}
         />
         <div></div>
