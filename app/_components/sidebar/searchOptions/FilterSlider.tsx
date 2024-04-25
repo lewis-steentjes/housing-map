@@ -13,15 +13,19 @@ export default function FilterSlider(props: Props) {
   const { value, min, max, step, discrete, colour, label, unit } = sliders[index];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newSliders = sliders;
+    const newSliders = [...sliders];
     newSliders[index].value = parseInt(event.target.value);
-    console.log(newSliders);
     setSliders(newSliders);
   };
 
   return (
-    <div className="">
-      <span>{label}</span>
+    <>
+      <div className="flex flex-row justify-between">
+        <span>{label}</span>
+        <span>
+          {value} {unit}
+        </span>
+      </div>
       <div>
         <input
           onChange={(event) => handleChange(event)}
@@ -29,11 +33,11 @@ export default function FilterSlider(props: Props) {
           min={min}
           max={max}
           defaultValue={value}
-          className="range range-primary"
+          className="range range-primary bg-gray-700"
           step={step}
         />
         <div></div>
       </div>
-    </div>
+    </>
   );
 }

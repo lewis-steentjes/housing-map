@@ -1,4 +1,4 @@
-/* 
+/*
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -14,11 +14,13 @@
   -moz-osx-font-smoothing: grayscale;
 } */
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.range {
+    background-color: red;
+}
 /* body {
   margin: 0;
   display: flex;
