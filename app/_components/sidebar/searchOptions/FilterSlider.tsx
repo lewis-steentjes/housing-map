@@ -1,4 +1,4 @@
-// import { SliderSettings } from "../../models/Slider";
+"use client";
 
 import { SliderSettings } from "@/app/_types/Slider";
 

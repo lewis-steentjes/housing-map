@@ -1,9 +1,21 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { Session, createClient } from "@supabase/supabase-js";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 
-const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_KEY);
+const [SUPABASE_URL, SUPABASE_KEY] = [
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_KEY,
+];
+
+if (SUPABASE_URL && SUPABASE_KEY) {
+  // Good to go!
+} else {
+  throw new Error("Missing env variables");
+}
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export default function LogIn() {
   const [session, setSession] = useState<Session | null>(null);

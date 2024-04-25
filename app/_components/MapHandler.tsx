@@ -1,15 +1,18 @@
+"use client";
+
 import { APIProvider, Map, MapCameraChangedEvent, InfoWindow } from "@vis.gl/react-google-maps";
 // import { AdvancedMarker } from '@vis.gl/react-google-maps';
-import { useCallback, useState } from "react";
-import { LatLng, Bounds } from "../models/Maps";
+import { useCallback } from "react";
+import { LatLng, Bounds } from "../_types/Maps";
 
 interface Props {
   startingCoords: LatLng;
   setBounds: React.Dispatch<React.SetStateAction<Bounds>>;
 }
 
-export default function MapComp(props: Props) {
-  const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
+export default function MapHandler(props: Props) {
   const { startingCoords, setBounds } = props;
 
   const handleCameraChange = useCallback(
@@ -18,6 +21,10 @@ export default function MapComp(props: Props) {
     },
     [setBounds],
   );
+
+  if (!API_KEY) {
+    throw new Error("No API key found for Google Maps");
+  }
 
   return (
     <APIProvider apiKey={API_KEY}>

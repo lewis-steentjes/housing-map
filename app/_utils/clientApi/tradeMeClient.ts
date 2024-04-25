@@ -1,12 +1,12 @@
-import request from "superagent";
+import axios from "axios";
 
-const rootUrl = "/api/v1/tradeMe";
+const rootUrl = "/api/v1/trademe";
 
 export async function getTradeMe() {
   try {
-    const result = await request.get(rootUrl);
-    return result.body;
+    const result = await axios.get(rootUrl);
+    return result.data;
   } catch (error: any) {
-    return error.response.status;
+    return error;
   }
 }

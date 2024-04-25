@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import FilterOptions from "./searchOptions/FilterOptions";
 import CloseButton from "./CloseButton";
@@ -20,8 +22,7 @@ export default function Sidebar(props: Props) {
       <ApiQueryButton />
       <div className="grow"></div>
       <div className="">
-        {" "}
-        <LogIn />{" "}
+        <LogIn />
       </div>
     </div>
   );

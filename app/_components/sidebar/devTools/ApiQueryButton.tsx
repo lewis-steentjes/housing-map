@@ -1,8 +1,10 @@
+"use client";
 import { getTradeMe } from "@/app/_utils/clientApi/tradeMeClient";
 
 export default function ApiQueryButton() {
   const handleClick = async () => {
-    console.log(JSON.stringify(await getTradeMe()));
+    const result = await getTradeMe();
+    console.log(result);
   };
 
   return (
