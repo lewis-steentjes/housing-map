@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <>
       <MapHandler startingCoords={startingCoords} setBounds={setBounds} />
-      <SidebarContainer />
+      <SidebarContainer bounds={bounds} />
     </>
   );
 }
