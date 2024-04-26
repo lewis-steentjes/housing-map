@@ -6,13 +6,12 @@ import CloseButton from "./CloseButton";
 import LogIn from "./LogIn";
 import ApiQueryButton from "./devTools/ApiQueryButton";
 // import ApiQueryButton from "./devTools/ApiQueryButton";
-import { Bounds } from "@/app/_types/Maps";
+
 import { SearchSettings } from "@/app/_types/Search";
 import useFilters from "@/app/_utils/hooks/useFilters";
 
 interface Props {
   setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
-  bounds: Bounds;
 }
 
 export default function Sidebar(props: Props) {
@@ -29,7 +28,7 @@ export default function Sidebar(props: Props) {
       </div>
       <FilterOptions filters={filters} setFilters={setFilters} />
 
-      <ApiQueryButton bounds={props.bounds} searchSettings={searchSettings} />
+      <ApiQueryButton searchSettings={searchSettings} />
       <div className="grow"></div>
       <div className="">
         <LogIn />
