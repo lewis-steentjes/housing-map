@@ -16,7 +16,7 @@ interface Props {
 
 export default function Sidebar(props: Props) {
   const [filters, setFilters] = useFilters();
-  const searchSettings = { Bathrooms: 2, Bedrooms: 2, Price: 2, ListingAge: 2 };
+  const searchSettings = { Bathrooms: 2, Bedrooms: 2, Price: 2, "Listing Age": 2 };
   filters.forEach((filter) => {
     searchSettings[filter.label as keyof typeof searchSettings] = filter.value;
   });
