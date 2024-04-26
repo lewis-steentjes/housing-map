@@ -21,10 +21,8 @@ export default function FilterSlider(props: Props) {
   return (
     <>
       <div className="flex flex-row justify-between">
-        <span>{label}</span>
-        <span>
-          {value} {unit}
-        </span>
+        <span className="ml-2">{label}</span>
+        <span className="mr-2">{value + unit}</span>
       </div>
       <div>
         <input

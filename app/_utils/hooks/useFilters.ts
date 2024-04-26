@@ -32,7 +32,7 @@ export default function useFilters() {
     discrete: false,
     colour: "green",
     label: "Price",
-    unit: "$",
+    unit: ".00$",
   };
 
   const listingAge: SliderSettings = {
