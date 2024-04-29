@@ -1,6 +1,8 @@
 import { InfoWindow, AdvancedMarker, useAdvancedMarkerRef, Pin } from "@vis.gl/react-google-maps";
 import { useState } from "react";
 import { Listing } from "@/app/_types/Listing";
+import PropertyInfo from "./PropertyInfo";
+import reformatTitle from "@/app/_utils/logic/reformatTitle";
 
 export default function PropertyMarker(props: Listing) {
   const coords = { lat: props.GeographicLocation.Latitude, lng: props.GeographicLocation.Longitude };
@@ -15,18 +17,11 @@ export default function PropertyMarker(props: Listing) {
           onMouseOver={() => setInfoWindowOpen(true)}
           onMouseOut={() => setInfoWindowOpen(false)}
         >
-          <span className="text-white">{props.Title}</span>
+          <span className="text-white whitespace-pre-line text-center">{reformatTitle(props.Title)}</span>
         </div>
       </AdvancedMarker>
 
-      {infoWindowOpen && (
-        <InfoWindow anchor={marker} maxWidth={200} onCloseClick={() => setInfoWindowOpen(false)}>
-          <span className="text-black">
-            This is an example for the <code style={{ whiteSpace: "nowrap" }}>&lt;AdvancedMarker /&gt;</code>{" "}
-            combined with an Infowindow.
-          </span>
-        </InfoWindow>
-      )}
+      {infoWindowOpen && <PropertyInfo marker={marker} details={props} />}
     </>
   );
 }
