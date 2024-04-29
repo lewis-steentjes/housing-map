@@ -15,7 +15,7 @@ export default function PropertyMarker(props: Listing) {
           onMouseOver={() => setInfoWindowOpen(true)}
           onMouseOut={() => setInfoWindowOpen(false)}
         >
-          <span className="text-white">Saltworks</span>
+          <span className="text-white">{props.Title}</span>
         </div>
       </AdvancedMarker>
 
