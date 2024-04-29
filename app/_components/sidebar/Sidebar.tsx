@@ -4,7 +4,6 @@ import React from "react";
 import FilterOptions from "./searchOptions/FilterOptions";
 import CloseButton from "./CloseButton";
 import LogIn from "./LogIn";
-import ApiQueryButton from "./devTools/ApiQueryButton";
 
 interface Props {
   setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,7 +17,6 @@ export default function Sidebar(props: Props) {
       </div>
       <FilterOptions />
 
-      <ApiQueryButton />
       <div className="grow"></div>
       <div className="">
         <LogIn />
