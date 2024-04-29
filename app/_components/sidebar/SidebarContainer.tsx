@@ -2,23 +2,21 @@
 import { useState } from "react";
 import OpenButton from "./OpenButton";
 import Sidebar from "./Sidebar";
-import { SearchSettings } from "@/app/_types/Search";
 
 export default function SidebarContainer() {
   const [isHidden, setIsHidden] = useState(false);
-  // const setIsHidden = () => true
-  // const isHidden = true
+
   if (isHidden) {
     return (
-      <>
+      <div className="z-10">
         <OpenButton setIsHidden={setIsHidden} />
-      </>
+      </div>
     );
   } else {
     return (
-      <>
+      <div className="z-10">
         <Sidebar setIsHidden={setIsHidden} />
-      </>
+      </div>
     );
   }
 }

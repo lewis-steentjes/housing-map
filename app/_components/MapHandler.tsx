@@ -6,7 +6,11 @@ import { getTradeMe } from "../_utils/clientApi/tradeMeClient";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-export default function MapHandler() {
+interface Props {
+  filters?: { label: string; value: number }[];
+}
+
+export default function MapHandler(props: Props) {
   const startingCoords = { lat: -43.5348688, lng: 172.642298 };
   const [bounds, setBounds] = useState({
     south: -43.549928803642516,
@@ -14,11 +18,11 @@ export default function MapHandler() {
     north: -43.51981267305107,
     east: 172.6596792811699,
   });
+
   const [properties, setProperties] = useState([]);
 
   const fetchProperties = async () => {
     setProperties(await getTradeMe(bounds));
-    console.log(properties, "🧨");
   };
 
   const handleCameraChange = (ev: MapCameraChangedEvent) => {

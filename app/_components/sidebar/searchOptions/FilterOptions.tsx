@@ -1,22 +1,19 @@
 "use client";
 
 import FilterSlider from "./FilterSlider";
+import { useContext } from "react";
+import { FilterContext } from "@/app/_utils/contexts/FilterContext";
 import { SliderSettings } from "@/app/_types/Slider";
 
-interface Props {
-  filters: SliderSettings[];
-  setFilters: (sliders: SliderSettings[]) => void;
-}
-
-export default function FilterOptions(props: Props) {
-  const { filters, setFilters } = props;
+export default function FilterOptions() {
+  const { filters, setFilters } = useContext(FilterContext);
   return (
     <>
       <h1 className="text-3xl font-bold underline">Filters: </h1>
-      {filters.map((slider, index) => {
+      {filters.map((filter: SliderSettings, index: number) => {
         return (
           <FilterSlider
-            key={`${slider.label} Slider`}
+            key={`${filter.label} Slider`}
             index={index}
             setFilters={setFilters}
             filters={filters}

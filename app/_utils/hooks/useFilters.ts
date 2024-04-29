@@ -10,7 +10,7 @@ export default function useFilters() {
     discrete: true,
     colour: "blue",
     label: "Bathrooms",
-    unit: "",
+    unit: "+",
   };
 
   const bedrooms: SliderSettings = {
@@ -21,7 +21,7 @@ export default function useFilters() {
     discrete: true,
     colour: "blue",
     label: "Bedrooms",
-    unit: "",
+    unit: "+",
   };
 
   const price: SliderSettings = {
@@ -31,7 +31,7 @@ export default function useFilters() {
     step: 10,
     discrete: false,
     colour: "green",
-    label: "Price",
+    label: "Max. Price",
     unit: ".00$",
   };
 
@@ -42,7 +42,7 @@ export default function useFilters() {
     step: 1,
     discrete: true,
     colour: "red",
-    label: "Listing Age",
+    label: "Max. Listing Age",
     unit: " days",
   };
 
