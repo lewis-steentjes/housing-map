@@ -12,6 +12,7 @@ export default function FilterSlider(props: Props) {
   const { filters, setFilters, index } = props;
   const { value, min, max, step, discrete, colour, label, unit } = filters[index];
 
+  // Consider implementing a useReducer function here
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFilters = [...filters];
     newFilters[index].value = parseInt(event.target.value);

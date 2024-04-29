@@ -2,15 +2,14 @@
 
 import { APIProvider, Map, MapCameraChangedEvent, InfoWindow } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
-import { getTradeMe } from "../_utils/clientApi/tradeMeClient";
+import { getTradeMe } from "../../_utils/clientApi/tradeMeClient";
+import SaltworksMarker from "./SaltworksMarker";
+import PropertyMarker from "./PropertyMarker";
+import { Listing } from "@/app/_types/Listing";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-interface Props {
-  filters?: { label: string; value: number }[];
-}
-
-export default function MapHandler(props: Props) {
+export default function MapHandler() {
   const startingCoords = { lat: -43.5348688, lng: 172.642298 };
   const [bounds, setBounds] = useState({
     south: -43.549928803642516,
@@ -51,10 +50,10 @@ export default function MapHandler(props: Props) {
         mapTypeId={"terrain"}
         onCameraChanged={handleCameraChange}
       >
-        {/* Choose from: [hybrid, sattelite, roadmap, terrain] */}
-        <InfoWindow position={startingCoords}>
-          <span className="text-black">Saltworks</span>
-        </InfoWindow>
+        {/* Choose from: [hybrid, sattelite, roadmap, terrain]// who cares. terrain rules! */}
+        {properties.map((property: Listing, index: number) => {
+          return <PropertyMarker key={index} {...property} />;
+        })}
       </Map>
     </APIProvider>
   );

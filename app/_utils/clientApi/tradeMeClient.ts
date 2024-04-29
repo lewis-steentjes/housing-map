@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Bounds } from "@/app/_types/Maps";
 const rootUrl = "/api/v1/trademe";
+import { Listing } from "@/app/_types/Listing";
 
 export async function getTradeMe(bounds: Bounds) {
   const { north, south, east, west } = bounds;
@@ -12,7 +13,7 @@ export async function getTradeMe(bounds: Bounds) {
   });
   try {
     const result = await axios.get(rootUrl, { params: searchParams });
-    return result;
+    return result.data.List as Listing[];
   } catch (error: any) {
     return error;
   }

@@ -4,7 +4,7 @@ import OpenButton from "./OpenButton";
 import Sidebar from "./Sidebar";
 
 export default function SidebarContainer() {
-  const [isHidden, setIsHidden] = useState(false);
+  const [isHidden, setIsHidden] = useState(true);
 
   if (isHidden) {
     return (
