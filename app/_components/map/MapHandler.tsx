@@ -53,7 +53,7 @@ export default function MapHandler() {
         onCameraChanged={handleCameraChange}
       >
         {/* Choose from: [hybrid, sattelite, roadmap, terrain]// who cares. terrain rules! */}
-        {filteredProperties.map((property: Listing, index: number) => {
+        {filteredProperties?.map((property: Listing, index: number) => {
           return <PropertyMarker key={index} {...property} />;
         })}
       </Map>

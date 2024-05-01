@@ -3,7 +3,7 @@ import { SlidersObject } from "@/app/_types/Slider";
 
 export default function filterProperties(filterSettings: SlidersObject, properties: Listing[]) {
   // If there are no properties, return an empty array
-  if (properties?.length === 0) {
+  if (properties?.length === 0 || properties == undefined) {
     return properties;
   }
 
