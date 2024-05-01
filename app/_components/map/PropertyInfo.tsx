@@ -5,7 +5,7 @@ import Image from "next/image";
 interface Props {
   details: Listing;
   marker: any;
-  setInfoWindowOpen: (status: boolean) => void);
+  setInfoWindowOpen: (status: boolean) => void;
 }
 
 export default function PropertyInfo(props: Props) {
@@ -19,7 +19,7 @@ export default function PropertyInfo(props: Props) {
       maxWidth={400}
       disableAutoPan={true}
       onCloseClick={() => {
-        setInfoWindowOpen(false)
+        props.setInfoWindowOpen(false);
       }}
       pixelOffset={{
         width: 0,
