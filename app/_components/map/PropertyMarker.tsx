@@ -47,7 +47,9 @@ export default function PropertyMarker(props: Listing) {
         </a>
       </AdvancedMarker>
 
-      {infoWindowOpen && <PropertyInfo marker={marker} details={props} />}
+      {infoWindowOpen && (
+        <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} marker={marker} details={props} />
+      )}
     </>
   );
 }
