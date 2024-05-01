@@ -17,6 +17,7 @@ export default function PropertyInfo(props: Props) {
       <InfoWindow
         anchor={props.marker}
         maxWidth={400}
+        disableAutoPan={true}
         pixelOffset={{
           width: 0,
           height: 5,
