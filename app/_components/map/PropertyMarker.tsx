@@ -36,8 +36,10 @@ export default function PropertyMarker(props: Listing) {
             className={"hover:text-lg p-1 rounded-md"}
             style={{ backgroundColor: listingColour, color: "black" }}
             onMouseOver={() => setInfoWindowOpen(true)}
+            onTouchStart={() => setInfoWindowOpen(true)}
             onMouseOut={() => setInfoWindowOpen(false)}
-            onClick={() => console.log(listingURL)}
+            onTouchEnd={() => setInfoWindowOpen(false)}
+            onTouchCancel={() => setInfoWindowOpen(false)}
           >
             <span className="text-black whitespace-pre-line text-center">{reformatTitle(props.Title)}</span>
           </button>
