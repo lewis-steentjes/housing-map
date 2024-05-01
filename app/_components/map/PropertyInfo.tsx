@@ -13,17 +13,17 @@ export default function PropertyInfo(props: Props) {
   const listingURL = baseURL + "a/" + props.details.ListingId;
 
   return (
-    <a href={listingURL} target="_blank">
-      <InfoWindow
-        anchor={props.marker}
-        maxWidth={400}
-        disableAutoPan={true}
-        pixelOffset={{
-          width: 0,
-          height: 5,
-          equals: () => false,
-        }}
-      >
+    <InfoWindow
+      anchor={props.marker}
+      maxWidth={400}
+      disableAutoPan={true}
+      pixelOffset={{
+        width: 0,
+        height: 5,
+        equals: () => false,
+      }}
+    >
+      <a href={listingURL} target="_blank">
         {props.details.PictureHref ? (
           <img src={props.details.PictureHref} alt="Image of Property" className="w-full" />
         ) : (
@@ -36,7 +36,7 @@ export default function PropertyInfo(props: Props) {
           <div className="text-black">🛁 {props.details.Bathrooms} </div>
           <div className="text-black">🚬 {props.details.SmokersOkay ? "✅" : "❌"} </div>
         </div>
-      </InfoWindow>
-    </a>
+      </a>
+    </InfoWindow>
   );
 }
