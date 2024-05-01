@@ -22,7 +22,7 @@ export default function Sidebar(props: Props) {
       <div className="">
         <p>
           Log in to save your previous map location, filter settings and track viewed listings. <br />
-          <span className="italic">Not yet implemented</span>
+          <span className="italic text-red-700">Not yet implemented</span>
         </p>
         <LogIn />
       </div>

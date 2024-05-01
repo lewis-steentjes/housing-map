@@ -5,7 +5,6 @@ export default function freshnessToColour(freshness: number) {
   // 1 Freshness: green
   // Ensure freshness is within range [0, 1]
   freshness = Math.min(Math.max(freshness, 0), 1);
-  console.log("computed fresh", freshness);
 
   // Compute colours to display for listings based on their age
   let red = Math.round(255 * (1 - freshness));
