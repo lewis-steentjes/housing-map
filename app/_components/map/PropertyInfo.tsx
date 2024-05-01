@@ -9,29 +9,33 @@ interface Props {
 
 export default function PropertyInfo(props: Props) {
   // Sample date string
+  const baseURL = "https://www.tmsandbox.co.nz/";
+  const listingURL = baseURL + "a/" + props.details.ListingId;
 
   return (
-    <InfoWindow
-      anchor={props.marker}
-      maxWidth={400}
-      pixelOffset={{
-        width: 0,
-        height: 5,
-        equals: () => false,
-      }}
-    >
-      {props.details.PictureHref ? (
-        <img src={props.details.PictureHref} alt="Image of Property" className="w-full" />
-      ) : (
-        <img src={"/no-image-found4.jpg"} alt="No Property Found" className="w-auto mx-auto" />
-      )}
-      <div className="text-black pb-2 pt-2">Available {props.details.AvailableFrom} </div>
-      <div className="grid grid-cols-2 justify-items-center">
-        <div className="text-black content-center">🛏️ {props.details.Bedrooms} </div>
-        <div className="text-black">🐈 {props.details.PetsOkay ? "✅" : "❌"} </div>
-        <div className="text-black">🛁 {props.details.Bathrooms} </div>
-        <div className="text-black">🚬 {props.details.SmokersOkay ? "✅" : "❌"} </div>
-      </div>
-    </InfoWindow>
+    <a href={listingURL} target="_blank">
+      <InfoWindow
+        anchor={props.marker}
+        maxWidth={400}
+        pixelOffset={{
+          width: 0,
+          height: 5,
+          equals: () => false,
+        }}
+      >
+        {props.details.PictureHref ? (
+          <img src={props.details.PictureHref} alt="Image of Property" className="w-full" />
+        ) : (
+          <img src={"/no-image-found4.jpg"} alt="No Property Found" className="w-auto mx-auto" />
+        )}
+        <div className="text-black pb-2 pt-2">Available {props.details.AvailableFrom} </div>
+        <div className="grid grid-cols-2 justify-items-center">
+          <div className="text-black content-center">🛏️ {props.details.Bedrooms} </div>
+          <div className="text-black">🐈 {props.details.PetsOkay ? "✅" : "❌"} </div>
+          <div className="text-black">🛁 {props.details.Bathrooms} </div>
+          <div className="text-black">🚬 {props.details.SmokersOkay ? "✅" : "❌"} </div>
+        </div>
+      </InfoWindow>
+    </a>
   );
 }
