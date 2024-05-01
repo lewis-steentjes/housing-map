@@ -13,11 +13,7 @@ export default function PropertyInfo(props: Props) {
   // Sample date string
   const baseURL = "https://www.tmsandbox.co.nz/";
   const listingURL = baseURL + "a/" + props.details.ListingId;
-  // TESTING
-  // Close info window when component is mounted
-  useEffect(() => {
-    props.setInfoWindowOpen(false);
-  }, [props]);
+
   return (
     <InfoWindow
       anchor={props.marker}
