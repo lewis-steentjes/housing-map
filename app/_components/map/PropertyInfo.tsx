@@ -1,6 +1,7 @@
 import { Listing } from "@/app/_types/Listing";
 import { InfoWindow } from "@vis.gl/react-google-maps";
 import Image from "next/image";
+import { useEffect } from "react";
 
 interface Props {
   details: Listing;
@@ -12,7 +13,11 @@ export default function PropertyInfo(props: Props) {
   // Sample date string
   const baseURL = "https://www.tmsandbox.co.nz/";
   const listingURL = baseURL + "a/" + props.details.ListingId;
-
+  // TESTING
+  // Close info window when component is mounted
+  useEffect(() => {
+    props.setInfoWindowOpen(true);
+  }, []);
   return (
     <InfoWindow
       anchor={props.marker}
