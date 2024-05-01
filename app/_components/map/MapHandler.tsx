@@ -1,10 +1,12 @@
 "use client";
 
 import { APIProvider, Map, MapCameraChangedEvent, InfoWindow } from "@vis.gl/react-google-maps";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { getTradeMe } from "../../_utils/clientApi/tradeMeClient";
 import PropertyMarker from "./PropertyMarker";
 import { Listing } from "@/app/_types/Listing";
+import filterProperties from "@/app/_utils/logic/filterProperties";
+import { FilterContext } from "@/app/_utils/contexts/FilterContext";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
@@ -18,7 +20,8 @@ export default function MapHandler() {
   });
 
   const [properties, setProperties] = useState([]);
-
+  const { filters } = useContext(FilterContext);
+  const filteredProperties = filterProperties(filters, properties);
   const fetchProperties = async () => {
     setProperties(await getTradeMe(bounds));
   };
@@ -50,7 +53,7 @@ export default function MapHandler() {
         onCameraChanged={handleCameraChange}
       >
         {/* Choose from: [hybrid, sattelite, roadmap, terrain]// who cares. terrain rules! */}
-        {properties.map((property: Listing, index: number) => {
+        {filteredProperties.map((property: Listing, index: number) => {
           return <PropertyMarker key={index} {...property} />;
         })}
       </Map>

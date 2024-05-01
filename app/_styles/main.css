@@ -18,14 +18,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.range {
+/* .range {
     background-color: red;
 }
 
 .info-image {
     position: relative;
     left: -5px;
-}
+} */
 /* body {
   margin: 0;
   display: flex;

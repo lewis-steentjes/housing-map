@@ -24,10 +24,22 @@ export default function useFilters() {
     unit: "+",
   };
 
-  const price: SliderSettings = {
-    value: 500,
-    min: 100,
-    max: 1000,
+  const minPrice: SliderSettings = {
+    value: 300,
+    valueMax: 1500,
+    min: 0,
+    max: 1500,
+    step: 10,
+    discrete: false,
+    colour: "green",
+    label: "Min. Price",
+    unit: ".00$",
+  };
+  const maxPrice: SliderSettings = {
+    value: 1200,
+    valueMax: 1500,
+    min: 0,
+    max: 1500,
     step: 10,
     discrete: false,
     colour: "green",
@@ -46,5 +58,5 @@ export default function useFilters() {
     unit: " days",
   };
 
-  return useState([bathrooms, bedrooms, price, listingAge]);
+  return useState({ bathrooms, bedrooms, minPrice, maxPrice, listingAge });
 }

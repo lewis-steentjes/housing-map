@@ -1,12 +1,17 @@
 import { createContext } from "react";
-import { SliderSettings } from "@/app/_types/Slider";
+import { SliderSettings, SlidersObject } from "@/app/_types/Slider";
 
 interface FilterContextType {
-  filters: SliderSettings[];
-  setFilters: (value: SliderSettings[]) => void;
+  filters: SlidersObject;
+  setFilters: (value: SlidersObject) => void;
 }
 
 export const FilterContext = createContext<FilterContextType>({
-  filters: [],
+  filters: {
+    bedrooms: {} as SliderSettings,
+    bathrooms: {} as SliderSettings,
+    price: {} as SliderSettings,
+    listingAge: {} as SliderSettings,
+  },
   setFilters: () => {},
 });

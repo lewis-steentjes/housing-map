@@ -3,22 +3,17 @@
 import FilterSlider from "./FilterSlider";
 import { useContext } from "react";
 import { FilterContext } from "@/app/_utils/contexts/FilterContext";
-import { SliderSettings } from "@/app/_types/Slider";
+import FilterDoubleSlider from "./FilterDoubleSlider";
 
 export default function FilterOptions() {
   const { filters, setFilters } = useContext(FilterContext);
   return (
     <div className="mt-2">
-      {filters.map((filter: SliderSettings, index: number) => {
-        return (
-          <FilterSlider
-            key={`${filter.label} Slider`}
-            index={index}
-            setFilters={setFilters}
-            filters={filters}
-          />
-        );
-      })}
+      <FilterSlider filter={"bedrooms"} setFilters={setFilters} filters={filters} />
+      <FilterSlider filter={"bathrooms"} setFilters={setFilters} filters={filters} />
+      {/* <FilterSlider filter={"listingAge"} setFilters={setFilters} filters={filters} /> */}
+      <FilterSlider filter={"minPrice"} setFilters={setFilters} filters={filters} />
+      <FilterSlider filter={"maxPrice"} setFilters={setFilters} filters={filters} />
     </div>
   );
 }

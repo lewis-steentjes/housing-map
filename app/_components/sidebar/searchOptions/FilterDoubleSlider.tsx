@@ -10,8 +10,8 @@ interface Props {
 
 export default function FilterSlider(props: Props) {
   const { filters, setFilters, filter } = props;
-  const { value, min, max, step, discrete, colour, label, unit } = filters[filter];
-  let display = value + unit;
+  const { value, min, max, step, discrete, colour, label, unit, valueMax } = filters[filter];
+
   // Consider implementing a useReducer function here
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFilters = { ...filters };
@@ -19,16 +19,11 @@ export default function FilterSlider(props: Props) {
     setFilters(newFilters);
   };
 
-  // Later on, we can add a check for unlimited values
-  // if (value >= max) {
-  //   display = "Unlimited";
-  // }
-
   return (
     <>
       <div className="flex flex-row justify-between">
         <span className="ml-2">{label}</span>
-        <span className="mr-2">{display}</span>
+        <span className="mr-2">{value + unit}</span>
       </div>
       <div>
         <input
@@ -37,10 +32,18 @@ export default function FilterSlider(props: Props) {
           min={min}
           max={max}
           defaultValue={value}
-          className="range range-primary bg-accent"
+          className="range range-primary bg-transparent absolute z-10"
           step={step}
         />
-        <div></div>
+        <input
+          onChange={(event) => handleChange(event)}
+          type="range"
+          min={min}
+          max={max}
+          defaultValue={valueMax}
+          className="range range-primary bg-transparent absolute z-10"
+          step={step}
+        />
       </div>
     </>
   );

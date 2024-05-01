@@ -1,5 +1,6 @@
 export interface SliderSettings {
   value: number;
+  valueMax?: number;
   min: number;
   max: number;
   step: number;
@@ -7,4 +8,12 @@ export interface SliderSettings {
   colour: string;
   label: string;
   unit: string;
+}
+
+export interface SlidersObject {
+  bedrooms: SliderSettings;
+  bathrooms: SliderSettings;
+  price: SliderSettings;
+  listingAge: SliderSettings;
+  [key: string]: SliderSettings;
 }

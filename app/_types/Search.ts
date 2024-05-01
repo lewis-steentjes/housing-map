@@ -1,6 +1,7 @@
 export interface SearchSettings {
   Bathrooms: number;
   Bedrooms: number;
-  Price: number;
+  minPrice: number;
+  maxPrice: number;
   ListingAge: number;
 }
