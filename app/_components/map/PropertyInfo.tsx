@@ -11,7 +11,15 @@ export default function PropertyInfo(props: Props) {
   // Sample date string
 
   return (
-    <InfoWindow anchor={props.marker} maxWidth={400} pixelOffset={{ width: 0, height: 5 }}>
+    <InfoWindow
+      anchor={props.marker}
+      maxWidth={400}
+      pixelOffset={{
+        width: 0,
+        height: 5,
+        equals: () => false,
+      }}
+    >
       {props.details.PictureHref ? (
         <img src={props.details.PictureHref} alt="Image of Property" className="w-full" />
       ) : (

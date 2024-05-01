@@ -3,7 +3,6 @@
 import { APIProvider, Map, MapCameraChangedEvent, InfoWindow } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
 import { getTradeMe } from "../../_utils/clientApi/tradeMeClient";
-import SaltworksMarker from "./SaltworksMarker";
 import PropertyMarker from "./PropertyMarker";
 import { Listing } from "@/app/_types/Listing";
 

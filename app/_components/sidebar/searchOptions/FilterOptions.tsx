@@ -8,8 +8,7 @@ import { SliderSettings } from "@/app/_types/Slider";
 export default function FilterOptions() {
   const { filters, setFilters } = useContext(FilterContext);
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">Filters: </h1>
+    <div className="mt-2">
       {filters.map((filter: SliderSettings, index: number) => {
         return (
           <FilterSlider
@@ -20,6 +19,6 @@ export default function FilterOptions() {
           />
         );
       })}
-    </>
+    </div>
   );
 }
