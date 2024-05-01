@@ -10,7 +10,8 @@ export const FilterContext = createContext<FilterContextType>({
   filters: {
     bedrooms: {} as SliderSettings,
     bathrooms: {} as SliderSettings,
-    price: {} as SliderSettings,
+    minPrice: {} as SliderSettings,
+    maxPrice: {} as SliderSettings,
     listingAge: {} as SliderSettings,
   },
   setFilters: () => {},

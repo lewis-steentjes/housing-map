@@ -13,7 +13,8 @@ export interface SliderSettings {
 export interface SlidersObject {
   bedrooms: SliderSettings;
   bathrooms: SliderSettings;
-  price: SliderSettings;
+  minPrice: SliderSettings;
+  maxPrice: SliderSettings;
   listingAge: SliderSettings;
   [key: string]: SliderSettings;
 }
