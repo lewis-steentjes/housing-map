@@ -26,6 +26,9 @@ export default function PropertyMarker(props: Listing) {
   const freshness = (listingDate.valueOf() - oldDate.valueOf()) / maxFresh;
   // const newListingDate = new Date(props.StartDate);
   const listingColour = freshnessToColour(freshness);
+  const handleTap = () => {
+    setInfoWindowOpen(!infoWindowOpen);
+  };
 
   return (
     <>
@@ -36,10 +39,8 @@ export default function PropertyMarker(props: Listing) {
             className={"hover:text-lg p-1 rounded-md"}
             style={{ backgroundColor: listingColour, color: "black" }}
             onMouseOver={() => setInfoWindowOpen(true)}
-            onTouchStart={() => setInfoWindowOpen(true)}
             onMouseOut={() => setInfoWindowOpen(false)}
-            onTouchEnd={() => setInfoWindowOpen(false)}
-            onTouchCancel={() => setInfoWindowOpen(false)}
+            onTouchStart={handleTap}
           >
             <span className="text-black whitespace-pre-line text-center">{reformatTitle(props.Title)}</span>
           </button>
