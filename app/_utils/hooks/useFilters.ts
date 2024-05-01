@@ -25,7 +25,7 @@ export default function useFilters() {
   };
 
   const minPrice: SliderSettings = {
-    value: 300,
+    value: 0,
     valueMax: 1500,
     min: 0,
     max: 1500,
@@ -36,7 +36,7 @@ export default function useFilters() {
     unit: ".00$",
   };
   const maxPrice: SliderSettings = {
-    value: 1200,
+    value: 1500,
     valueMax: 1500,
     min: 0,
     max: 1500,

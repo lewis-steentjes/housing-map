@@ -1,6 +1,6 @@
 "use client";
 
-import { APIProvider, Map, MapCameraChangedEvent, InfoWindow } from "@vis.gl/react-google-maps";
+import { APIProvider, Map, MapCameraChangedEvent } from "@vis.gl/react-google-maps";
 import { useEffect, useState, useContext } from "react";
 import { getTradeMe } from "../../_utils/clientApi/tradeMeClient";
 import PropertyMarker from "./PropertyMarker";
@@ -49,10 +49,8 @@ export default function MapHandler() {
         gestureHandling={"greedy"}
         disableDefaultUI={true}
         clickableIcons={false}
-        mapTypeId={"terrain"}
         onCameraChanged={handleCameraChange}
       >
-        {/* Choose from: [hybrid, sattelite, roadmap, terrain]// who cares. terrain rules! */}
         {filteredProperties?.map((property: Listing, index: number) => {
           return <PropertyMarker key={index} {...property} />;
         })}
