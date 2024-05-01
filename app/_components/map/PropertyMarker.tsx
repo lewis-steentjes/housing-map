@@ -7,12 +7,13 @@ import freshnessToColour from "@/app/_utils/logic/freshnessToColour";
 
 export default function PropertyMarker(props: Listing) {
   const coords = { lat: props.GeographicLocation.Latitude, lng: props.GeographicLocation.Longitude };
+
+  const [infoWindowOpen, setInfoWindowOpen] = useState(false);
   // TESTING
   // Close info window when component is re-rendered
-  const [infoWindowOpen, setInfoWindowOpen] = useState(false);
-  useEffect(() => {
-    setInfoWindowOpen(false);
-  }, [props]);
+  // useEffect(() => {
+  //   setInfoWindowOpen(false);
+  // }, [props]);
   const [markerRef, marker] = useAdvancedMarkerRef();
   const baseURL = "https://www.tmsandbox.co.nz/";
   const listingURL = baseURL + "a/" + props.ListingId;
