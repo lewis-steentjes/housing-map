@@ -1,5 +1,5 @@
 import { AdvancedMarker, useAdvancedMarkerRef } from "@vis.gl/react-google-maps";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Listing } from "@/app/_types/Listing";
 import PropertyInfo from "./PropertyInfo";
 import reformatTitle from "@/app/_utils/logic/reformatTitle";
@@ -7,7 +7,12 @@ import freshnessToColour from "@/app/_utils/logic/freshnessToColour";
 
 export default function PropertyMarker(props: Listing) {
   const coords = { lat: props.GeographicLocation.Latitude, lng: props.GeographicLocation.Longitude };
+  // TESTING
+  // Close info window when component is re-rendered
   const [infoWindowOpen, setInfoWindowOpen] = useState(false);
+  useEffect(() => {
+    setInfoWindowOpen(false);
+  }, [props]);
   const [markerRef, marker] = useAdvancedMarkerRef();
   const baseURL = "https://www.tmsandbox.co.nz/";
   const listingURL = baseURL + "a/" + props.ListingId;
