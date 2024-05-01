@@ -16,8 +16,8 @@ export default function PropertyInfo(props: Props) {
   // TESTING
   // Close info window when component is mounted
   useEffect(() => {
-    props.setInfoWindowOpen(true);
-  }, []);
+    props.setInfoWindowOpen(false);
+  }, [props]);
   return (
     <InfoWindow
       anchor={props.marker}
