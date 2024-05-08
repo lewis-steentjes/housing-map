@@ -18,13 +18,12 @@ export default function MapHandler() {
     north: -43.51981267305107,
     east: 172.6596792811699,
   });
-
+  const [history, setHistory] = useState({});
   const [properties, setProperties] = useState([]);
   const { filters } = useContext(FilterContext);
   const filteredProperties = properties; // Try using server-side filtering only || filterProperties(filters, properties);
   const fetchProperties = async () => {
     setProperties(await getTradeMe(bounds, filters));
-    console.log(properties);
   };
 
   const handleCameraChange = (ev: MapCameraChangedEvent) => {
@@ -57,7 +56,15 @@ export default function MapHandler() {
             (a: Listing, b: Listing) => Number(a.StartDate.match(/\d+/)) - Number(b.StartDate.match(/\d+/)),
           )
           .map((property: Listing, index: number) => {
-            return <PropertyMarker key={index} property={property} bounds={bounds} />;
+            return (
+              <PropertyMarker
+                key={index}
+                property={property}
+                bounds={bounds}
+                history={history}
+                setHistory={setHistory}
+              />
+            );
           })}
         <div className="bg-[#0000FFAA] w-12 h-10 absolute bottom-0 right-0 rounded-md m-4 flex justify-center items-center ">
           <span className="text-2xl">{properties.length}</span>

@@ -1,5 +1,5 @@
 import { AdvancedMarker, useAdvancedMarkerRef } from "@vis.gl/react-google-maps";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Listing } from "@/app/_types/Listing";
 import PropertyInfo from "./PropertyInfo";
 import reformatTitle from "@/app/_utils/logic/reformatTitle";
@@ -13,18 +13,34 @@ const balatro = localFont({ src: "../../../public/fonts/balatro.otf" });
 interface Props {
   property: Listing;
   bounds: Bounds;
+  history: History;
+  setHistory: (value: History) => void;
+}
+interface History {
+  [key: number]: boolean;
 }
 
 export default function PropertyMarker(props: Props) {
-  const { bounds, property } = props;
+  const { bounds, property, history, setHistory } = props;
   const coords = { lat: property.GeographicLocation.Latitude, lng: property.GeographicLocation.Longitude };
 
   const [infoWindowOpen, setInfoWindowOpen] = useState(false);
-  // TESTING
+  const [moneyText, setMoneyText] = useState("#FEFE02");
+
   // Close info window when component is re-rendered
   useEffect(() => {
     setInfoWindowOpen(false);
-  }, [props]);
+  }, [props.bounds]);
+
+  useEffect(() => {
+    if (history[property.ListingId] === true) {
+      console.log("👩‍🔧", property.ListingId);
+      setMoneyText("#bb8d37");
+    } else {
+      console.log("oioi 💀", property.ListingId);
+      setMoneyText("#FEFE02");
+    }
+  }, [props.bounds, property.ListingId, history]);
 
   const [markerRef, marker] = useAdvancedMarkerRef();
   const baseURL = "https://www.tmsandbox.co.nz/";
@@ -45,11 +61,26 @@ export default function PropertyMarker(props: Props) {
   const freshness = (listingDate.valueOf() - oldDate.valueOf()) / maxFresh;
   const listingColour = freshnessToColour(freshness);
 
-  // const newListingDate = new Date(props.StartDate);
-
   const handleTap = () => {
     setInfoWindowOpen(!infoWindowOpen);
+    const newHist: History = { ...history };
+    newHist[property.ListingId] = true;
+    setHistory(newHist);
   };
+
+  const handleHoverOn = () => {
+    setInfoWindowOpen(true);
+  };
+
+  const handleHoverOff = () => {
+    setInfoWindowOpen(false);
+    const newHist: History = { ...history };
+    newHist[property.ListingId] = true;
+    setHistory(newHist);
+  };
+
+  // Check if listing has been seen before to determine text colour
+  // Just web dev things
 
   return (
     <div className="relative">
@@ -63,11 +94,13 @@ export default function PropertyMarker(props: Props) {
             target="_blank"
             className={`marker-container text-base hover:text-lg `}
             style={{ filter: `drop-shadow(0rem 0rem 0.2rem ${listingColour})` }}
-            onMouseOver={() => setInfoWindowOpen(true)}
-            onMouseOut={() => setInfoWindowOpen(false)}
+            onMouseOver={handleHoverOn}
+            onMouseOut={handleHoverOff}
             onTouchStart={handleTap}
           >
-            <div className={`marker-money ${balatro.className} `}>{reformatTitle(property.Title)}</div>
+            <div className={`marker-money ${balatro.className} `} style={{ color: `${moneyText}` }}>
+              {reformatTitle(property.Title)}
+            </div>
             <div className="marker-triangle "></div>
           </a>
         </div>
