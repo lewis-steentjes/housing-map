@@ -5,6 +5,9 @@ import PropertyInfo from "./PropertyInfo";
 import reformatTitle from "@/app/_utils/logic/reformatTitle";
 import freshnessToColour from "@/app/_utils/logic/freshnessToColour";
 import "../../_styles/markers.css";
+import localFont from "next/font/local";
+
+const balatro = localFont({ src: "../../../public/fonts/balatro.otf" });
 
 export default function PropertyMarker(props: Listing) {
   const coords = { lat: props.GeographicLocation.Latitude, lng: props.GeographicLocation.Longitude };
@@ -15,6 +18,7 @@ export default function PropertyMarker(props: Listing) {
   // useEffect(() => {
   //   setInfoWindowOpen(false);
   // }, [props]);
+
   const [markerRef, marker] = useAdvancedMarkerRef();
   const baseURL = "https://www.tmsandbox.co.nz/";
   const listingURL = baseURL + "a/" + props.ListingId;
@@ -23,6 +27,7 @@ export default function PropertyMarker(props: Listing) {
   const currDate = new Date();
   // const listingDate = Date.parse(props.StartDate);
   const listingTimestamp = props.StartDate.match(/\d+/);
+  // !!!!!REMOVE THIS BIT LATER AND MAKE IT WORK NICER!!!!!!!!!!!!!!!!!!!!!!
   if (!listingTimestamp) {
     console.log("No timestamp found for listing: ", props.ListingId);
     return null;
@@ -31,33 +36,35 @@ export default function PropertyMarker(props: Listing) {
   // Define a value to consider a listing maximally fresh
   const maxFresh = currDate.valueOf() - oldDate.valueOf();
   const freshness = (listingDate.valueOf() - oldDate.valueOf()) / maxFresh;
-  // const newListingDate = new Date(props.StartDate);
   const listingColour = freshnessToColour(freshness);
+
+  // const newListingDate = new Date(props.StartDate);
+
   const handleTap = () => {
     setInfoWindowOpen(!infoWindowOpen);
   };
 
   return (
-    <>
-      <AdvancedMarker ref={markerRef} position={coords} draggable={true}>
-        <a href={listingURL} target="_blank" className="flex flex-col">
-          {/* TO DO: MAKE KEYBOARD NAVIGATABLE */}
-          <button
-            className={"hover:text-lg p-1 rounded-md"}
-            style={{ color: "purple", backgroundColor: "orange" }}
+    <div className="relative">
+      <AdvancedMarker ref={markerRef} position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
+        <div className="flex flex-col items-center gap-2">
+          <a href={listingURL} target="_blank">
+            {infoWindowOpen && <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} details={props} />}
+          </a>
+          <a
+            href={listingURL}
+            target="_blank"
+            className={`marker-container text-base hover:text-lg `}
+            style={{ filter: `drop-shadow(0rem 0rem 0.2rem ${listingColour})` }}
             onMouseOver={() => setInfoWindowOpen(true)}
-            onMouseOut={() => setInfoWindowOpen(false)}
+            // onMouseOut={() => setInfoWindowOpen(false)}
             onTouchStart={handleTap}
           >
-            <span className="text-black whitespace-pre-line text-center">{reformatTitle(props.Title)}</span>
-          </button>
-          <div className="bg-grey"></div>
-        </a>
+            <div className={`marker-money ${balatro.className} `}>{reformatTitle(props.Title)}</div>
+            <div className="marker-triangle "></div>
+          </a>
+        </div>
       </AdvancedMarker>
-
-      {infoWindowOpen && (
-        <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} marker={marker} details={props} />
-      )}
-    </>
+    </div>
   );
 }

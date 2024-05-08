@@ -52,9 +52,13 @@ export default function MapHandler() {
         clickableIcons={false}
         onCameraChanged={handleCameraChange}
       >
-        {filteredProperties?.map((property: Listing, index: number) => {
-          return <PropertyMarker key={index} {...property} />;
-        })}
+        {filteredProperties
+          ?.sort(
+            (a: Listing, b: Listing) => Number(a.StartDate.match(/\d+/)) - Number(b.StartDate.match(/\d+/)),
+          )
+          .map((property: Listing, index: number) => {
+            return <PropertyMarker key={index} {...property} />;
+          })}
         <div className="bg-[#0000FFAA] w-12 h-10 absolute bottom-0 right-0 rounded-md m-4 flex justify-center items-center ">
           <span className="text-2xl">{properties.length}</span>
         </div>
