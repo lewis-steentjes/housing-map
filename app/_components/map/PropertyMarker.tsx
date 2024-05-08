@@ -13,7 +13,6 @@ export default function PropertyMarker(props: Listing) {
   const coords = { lat: props.GeographicLocation.Latitude, lng: props.GeographicLocation.Longitude };
 
   const [infoWindowOpen, setInfoWindowOpen] = useState(false);
-  const [listingColour, setListingColour] = useState("#000000FF");
   // TESTING
   // Close info window when component is re-rendered
   // useEffect(() => {
@@ -28,31 +27,31 @@ export default function PropertyMarker(props: Listing) {
   const currDate = new Date();
   // const listingDate = Date.parse(props.StartDate);
   const listingTimestamp = props.StartDate.match(/\d+/);
-
+  // !!!!!REMOVE THIS BIT LATER AND MAKE IT WORK NICER!!!!!!!!!!!!!!!!!!!!!!
+  if (!listingTimestamp) {
+    console.log("No timestamp found for listing: ", props.ListingId);
+    return null;
+  }
   const listingDate = new Date(Number(listingTimestamp[0]));
   // Define a value to consider a listing maximally fresh
   const maxFresh = currDate.valueOf() - oldDate.valueOf();
   const freshness = (listingDate.valueOf() - oldDate.valueOf()) / maxFresh;
-  useEffect(() => {
-    setListingColour(freshnessToColour(freshness));
-    console.log(listingColour);
-  }, [freshness]);
+  const listingColour = freshnessToColour(freshness);
+
   // const newListingDate = new Date(props.StartDate);
 
   const handleTap = () => {
     setInfoWindowOpen(!infoWindowOpen);
   };
-  if (!listingTimestamp) {
-    console.log("No timestamp found for listing: ", props.ListingId);
-    return null;
-  }
+
   return (
     <>
       <AdvancedMarker ref={markerRef} position={coords} draggable={true}>
         <a href={listingURL} target="_blank">
           {/* TO DO: MAKE KEYBOARD NAVIGATABLE */}
           <button
-            className={`marker-container text-base hover:text-lg bg-[${listingColour}]`}
+            className={`marker-container text-base hover:text-lg `}
+            style={{ filter: `drop-shadow(1px 1px 2px blue);` }}
             onMouseOver={() => setInfoWindowOpen(true)}
             onMouseOut={() => setInfoWindowOpen(false)}
             onTouchStart={handleTap}

@@ -15,6 +15,5 @@ export default function freshnessToColour(freshness: number) {
   green += otherTint;
 
   const colour = "#" + red.toString(16).padStart(2, "0") + green.toString(16).padStart(2, "0") + "00" + "99";
-  return "#b8940099";
   return String(colour);
 }
