@@ -5,7 +5,7 @@ import PropertyInfo from "./PropertyInfo";
 import reformatTitle from "@/app/_utils/logic/reformatTitle";
 import freshnessToColour from "@/app/_utils/logic/freshnessToColour";
 import "../../_styles/markers.css";
-import localFont from "@next/font/local";
+import localFont from "next/font/local";
 
 const balatro = localFont({ src: "../../../public/fonts/balatro.otf" });
 
@@ -45,29 +45,26 @@ export default function PropertyMarker(props: Listing) {
   };
 
   return (
-    <>
-      <AdvancedMarker ref={markerRef} position={coords} draggable={true}>
-        <a href={listingURL} target="_blank">
-          {/* TO DO: MAKE KEYBOARD NAVIGATABLE */}
-          <button
+    <div className="relative">
+      <AdvancedMarker ref={markerRef} position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
+        <div className="flex flex-col items-center gap-2">
+          <a href={listingURL} target="_blank">
+            {infoWindowOpen && <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} details={props} />}
+          </a>
+          <a
+            href={listingURL}
+            target="_blank"
             className={`marker-container text-base hover:text-lg `}
-            style={{ filter: `drop-shadow(1px 1px 2px blue);` }}
+            style={{ filter: `drop-shadow(0rem 0rem 0.2rem ${listingColour})` }}
             onMouseOver={() => setInfoWindowOpen(true)}
-            onMouseOut={() => setInfoWindowOpen(false)}
+            // onMouseOut={() => setInfoWindowOpen(false)}
             onTouchStart={handleTap}
           >
-            <div className="marker-content">
-              <div className={`marker-money ${balatro.className} `}>{reformatTitle(props.Title)}</div>
-            </div>
-
+            <div className={`marker-money ${balatro.className} `}>{reformatTitle(props.Title)}</div>
             <div className="marker-triangle "></div>
-          </button>
-        </a>
+          </a>
+        </div>
       </AdvancedMarker>
-
-      {infoWindowOpen && (
-        <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} marker={marker} details={props} />
-      )}
-    </>
+    </div>
   );
 }

@@ -7,13 +7,22 @@ export default function freshnessToColour(freshness: number) {
   freshness = Math.min(Math.max(freshness, 0), 1);
 
   // Compute colours to display for listings based on their age
-  let red = Math.round(255 * (1 - freshness));
-  let green = Math.round(255 * freshness);
-  const tint = Math.round((255 - red) * 0.3);
-  const otherTint = Math.round((255 - green) * 0.3);
+  let red = 0; // Math.round(255 * (1 - freshness));
+  let green = 0; // Math.round(255 * freshness);
+  const tint = 0; //Math.round((255 - red) * 0.3);
+  const otherTint = 0; //Math.round((255 - green) * 0.3);
   red += tint;
   green += otherTint;
+  // let brightness = Math.round(255 * freshness * (2 - freshness));
+  let brightness = 255;
+  red = 255;
+  green = Math.round(255 * freshness);
 
-  const colour = "#" + red.toString(16).padStart(2, "0") + green.toString(16).padStart(2, "0") + "00" + "99";
+  const colour =
+    "#" +
+    red.toString(16).padStart(2, "0") +
+    green.toString(16).padStart(2, "0") +
+    "00" +
+    brightness.toString(16).padStart(2, "0");
   return String(colour);
 }
