@@ -44,7 +44,7 @@ export default function PropertyMarker(props: Listing) {
           {/* TO DO: MAKE KEYBOARD NAVIGATABLE */}
           <button
             className={"hover:text-lg p-1 rounded-md"}
-            style={{ backgroundColor: listingColour, color: "black" }}
+            style={{ color: "purple", backgroundColor: "orange" }}
             onMouseOver={() => setInfoWindowOpen(true)}
             onMouseOut={() => setInfoWindowOpen(false)}
             onTouchStart={handleTap}
