@@ -21,9 +21,10 @@ export default function MapHandler() {
 
   const [properties, setProperties] = useState([]);
   const { filters } = useContext(FilterContext);
-  const filteredProperties = filterProperties(filters, properties);
+  const filteredProperties = properties; // Try using server-side filtering only || filterProperties(filters, properties);
   const fetchProperties = async () => {
-    setProperties(await getTradeMe(bounds));
+    setProperties(await getTradeMe(bounds, filters));
+    console.log(properties);
   };
 
   const handleCameraChange = (ev: MapCameraChangedEvent) => {
@@ -33,7 +34,7 @@ export default function MapHandler() {
   useEffect(() => {
     const timer = setTimeout(fetchProperties, 500);
     return () => clearTimeout(timer);
-  }, [bounds]); // ESlint doesn't like this but it works. Probably better to execute this stuff in the event handler
+  }, [bounds, filters]); // ESlint doesn't like this but it works. Probably better to execute this stuff in the event handler
 
   if (!API_KEY) {
     throw new Error("No API key found for Google Maps");
@@ -54,6 +55,9 @@ export default function MapHandler() {
         {filteredProperties?.map((property: Listing, index: number) => {
           return <PropertyMarker key={index} {...property} />;
         })}
+        <div className="bg-[#0000FFAA] w-12 h-10 absolute bottom-0 right-0 rounded-md m-4 flex justify-center items-center ">
+          <span className="text-2xl">{properties.length}</span>
+        </div>
       </Map>
     </APIProvider>
   );

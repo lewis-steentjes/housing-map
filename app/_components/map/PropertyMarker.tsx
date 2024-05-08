@@ -4,6 +4,7 @@ import { Listing } from "@/app/_types/Listing";
 import PropertyInfo from "./PropertyInfo";
 import reformatTitle from "@/app/_utils/logic/reformatTitle";
 import freshnessToColour from "@/app/_utils/logic/freshnessToColour";
+import "../../_styles/markers.css";
 
 export default function PropertyMarker(props: Listing) {
   const coords = { lat: props.GeographicLocation.Latitude, lng: props.GeographicLocation.Longitude };
@@ -39,7 +40,7 @@ export default function PropertyMarker(props: Listing) {
   return (
     <>
       <AdvancedMarker ref={markerRef} position={coords} draggable={true}>
-        <a href={listingURL} target="_blank">
+        <a href={listingURL} target="_blank" className="flex flex-col">
           {/* TO DO: MAKE KEYBOARD NAVIGATABLE */}
           <button
             className={"hover:text-lg p-1 rounded-md"}
@@ -50,6 +51,7 @@ export default function PropertyMarker(props: Listing) {
           >
             <span className="text-black whitespace-pre-line text-center">{reformatTitle(props.Title)}</span>
           </button>
+          <div className="bg-grey"></div>
         </a>
       </AdvancedMarker>
 
