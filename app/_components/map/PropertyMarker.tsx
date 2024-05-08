@@ -57,7 +57,7 @@ export default function PropertyMarker(props: Listing) {
             className={`marker-container text-base hover:text-lg `}
             style={{ filter: `drop-shadow(0rem 0rem 0.2rem ${listingColour})` }}
             onMouseOver={() => setInfoWindowOpen(true)}
-            // onMouseOut={() => setInfoWindowOpen(false)}
+            onMouseOut={() => setInfoWindowOpen(false)}
             onTouchStart={handleTap}
           >
             <div className={`marker-money ${balatro.className} `}>{reformatTitle(props.Title)}</div>
