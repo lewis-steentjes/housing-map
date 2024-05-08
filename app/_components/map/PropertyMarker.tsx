@@ -5,16 +5,21 @@ import PropertyInfo from "./PropertyInfo";
 import reformatTitle from "@/app/_utils/logic/reformatTitle";
 import freshnessToColour from "@/app/_utils/logic/freshnessToColour";
 import "../../_styles/markers.css";
+import localFont from "@next/font/local";
+
+const balatro = localFont({ src: "../../../public/fonts/balatro.otf" });
 
 export default function PropertyMarker(props: Listing) {
   const coords = { lat: props.GeographicLocation.Latitude, lng: props.GeographicLocation.Longitude };
 
   const [infoWindowOpen, setInfoWindowOpen] = useState(false);
+  const [listingColour, setListingColour] = useState("#000000FF");
   // TESTING
   // Close info window when component is re-rendered
   // useEffect(() => {
   //   setInfoWindowOpen(false);
   // }, [props]);
+
   const [markerRef, marker] = useAdvancedMarkerRef();
   const baseURL = "https://www.tmsandbox.co.nz/";
   const listingURL = baseURL + "a/" + props.ListingId;
@@ -23,35 +28,41 @@ export default function PropertyMarker(props: Listing) {
   const currDate = new Date();
   // const listingDate = Date.parse(props.StartDate);
   const listingTimestamp = props.StartDate.match(/\d+/);
-  if (!listingTimestamp) {
-    console.log("No timestamp found for listing: ", props.ListingId);
-    return null;
-  }
+
   const listingDate = new Date(Number(listingTimestamp[0]));
   // Define a value to consider a listing maximally fresh
   const maxFresh = currDate.valueOf() - oldDate.valueOf();
   const freshness = (listingDate.valueOf() - oldDate.valueOf()) / maxFresh;
+  useEffect(() => {
+    setListingColour(freshnessToColour(freshness));
+    console.log(listingColour);
+  }, [freshness]);
   // const newListingDate = new Date(props.StartDate);
-  const listingColour = freshnessToColour(freshness);
+
   const handleTap = () => {
     setInfoWindowOpen(!infoWindowOpen);
   };
-
+  if (!listingTimestamp) {
+    console.log("No timestamp found for listing: ", props.ListingId);
+    return null;
+  }
   return (
     <>
       <AdvancedMarker ref={markerRef} position={coords} draggable={true}>
-        <a href={listingURL} target="_blank" className="flex flex-col">
+        <a href={listingURL} target="_blank">
           {/* TO DO: MAKE KEYBOARD NAVIGATABLE */}
           <button
-            className={"hover:text-lg p-1 rounded-md"}
-            style={{ backgroundColor: listingColour, color: "black" }}
+            className={`marker-container text-base hover:text-lg bg-[${listingColour}]`}
             onMouseOver={() => setInfoWindowOpen(true)}
             onMouseOut={() => setInfoWindowOpen(false)}
             onTouchStart={handleTap}
           >
-            <span className="text-black whitespace-pre-line text-center">{reformatTitle(props.Title)}</span>
+            <div className="marker-content">
+              <div className={`marker-money ${balatro.className} `}>{reformatTitle(props.Title)}</div>
+            </div>
+
+            <div className="marker-triangle "></div>
           </button>
-          <div className="bg-grey"></div>
         </a>
       </AdvancedMarker>
 
