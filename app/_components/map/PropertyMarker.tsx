@@ -6,30 +6,37 @@ import reformatTitle from "@/app/_utils/logic/reformatTitle";
 import freshnessToColour from "@/app/_utils/logic/freshnessToColour";
 import "../../_styles/markers.css";
 import localFont from "next/font/local";
+import { Bounds } from "@/app/_types/Maps";
 
 const balatro = localFont({ src: "../../../public/fonts/balatro.otf" });
 
-export default function PropertyMarker(props: Listing) {
-  const coords = { lat: props.GeographicLocation.Latitude, lng: props.GeographicLocation.Longitude };
+interface Props {
+  property: Listing;
+  bounds: Bounds;
+}
+
+export default function PropertyMarker(props: Props) {
+  const { bounds, property } = props;
+  const coords = { lat: property.GeographicLocation.Latitude, lng: property.GeographicLocation.Longitude };
 
   const [infoWindowOpen, setInfoWindowOpen] = useState(false);
   // TESTING
   // Close info window when component is re-rendered
-  // useEffect(() => {
-  //   setInfoWindowOpen(false);
-  // }, [props]);
+  useEffect(() => {
+    setInfoWindowOpen(false);
+  }, [props]);
 
   const [markerRef, marker] = useAdvancedMarkerRef();
   const baseURL = "https://www.tmsandbox.co.nz/";
-  const listingURL = baseURL + "a/" + props.ListingId;
+  const listingURL = baseURL + "a/" + property.ListingId;
   // Defined a date to be considered "old" for the purpose of determining how new a listing is ~Feb 11 2015
   const oldDate = new Date(1423621117193);
   const currDate = new Date();
   // const listingDate = Date.parse(props.StartDate);
-  const listingTimestamp = props.StartDate.match(/\d+/);
+  const listingTimestamp = property.StartDate.match(/\d+/);
   // !!!!!REMOVE THIS BIT LATER AND MAKE IT WORK NICER!!!!!!!!!!!!!!!!!!!!!!
   if (!listingTimestamp) {
-    console.log("No timestamp found for listing: ", props.ListingId);
+    console.log("No timestamp found for listing: ", property.ListingId);
     return null;
   }
   const listingDate = new Date(Number(listingTimestamp[0]));
@@ -49,7 +56,7 @@ export default function PropertyMarker(props: Listing) {
       <AdvancedMarker ref={markerRef} position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
         <div className="flex flex-col items-center gap-2">
           <a href={listingURL} target="_blank">
-            {infoWindowOpen && <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} details={props} />}
+            {infoWindowOpen && <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} details={property} />}
           </a>
           <a
             href={listingURL}
@@ -60,7 +67,7 @@ export default function PropertyMarker(props: Listing) {
             onMouseOut={() => setInfoWindowOpen(false)}
             onTouchStart={handleTap}
           >
-            <div className={`marker-money ${balatro.className} `}>{reformatTitle(props.Title)}</div>
+            <div className={`marker-money ${balatro.className} `}>{reformatTitle(property.Title)}</div>
             <div className="marker-triangle "></div>
           </a>
         </div>
