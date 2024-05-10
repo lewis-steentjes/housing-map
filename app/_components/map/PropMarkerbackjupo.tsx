@@ -85,7 +85,7 @@ export default function PropertyMarker(props: Props) {
     <AdvancedMarker ref={markerRef} position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
       <div className="marker-container">
         <div
-          className="flex flex-col items-center justify-end gap-1 relative "
+          className="flex flex-col items-center justify-between relative "
           style={{ height: markerHeight }}
         >
           <a href={listingURL} target="_blank">
@@ -94,7 +94,7 @@ export default function PropertyMarker(props: Props) {
           <a
             href={listingURL}
             target="_blank"
-            className={`text-base hover:text-lg duration-100`}
+            className={`text-base hover:text-lg duration-75`}
             style={{ filter: `drop-shadow(0rem 0rem 0.2rem ${listingColour})` }}
             onMouseOver={handleHoverOn}
             onMouseOut={handleHoverOff}
