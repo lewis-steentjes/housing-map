@@ -1,4 +1,4 @@
-import { AdvancedMarker, useAdvancedMarkerRef } from "@vis.gl/react-google-maps";
+import { AdvancedMarker } from "@vis.gl/react-google-maps";
 import { useContext, useEffect, useState } from "react";
 import { Listing } from "@/app/_types/Listing";
 import PropertyInfo from "./PropertyInfo";
@@ -27,12 +27,6 @@ export default function PropertyMarker(props: Props) {
   const [infoWindowOpen, setInfoWindowOpen] = useState(false);
   const [moneyText, setMoneyText] = useState("#FEFE02");
   const [moneyBackground, setMoneyBackground] = useState("#59981A");
-  // const moneyBackground = "#4F8717";
-  // Close info window when component is re-rendered
-  // useEffect(() => {
-  //   setInfoWindowOpen(false);
-  // }, [props.bounds]);
-
   useEffect(() => {
     if (history[property.ListingId] === true) {
       // Set money colour to seen
@@ -45,7 +39,6 @@ export default function PropertyMarker(props: Props) {
     }
   }, [props.bounds, history, property.ListingId]);
 
-  const [markerRef, marker] = useAdvancedMarkerRef();
   const baseURL = "https://www.tmsandbox.co.nz/";
   const listingURL = baseURL + "a/" + property.ListingId;
   // Defined a date to be considered "old" for the purpose of determining how new a listing is ~Feb 11 2015
@@ -58,6 +51,8 @@ export default function PropertyMarker(props: Props) {
     console.log("No timestamp found for listing. ", property.ListingId);
     return null;
   }
+
+  // This can all be put inside freshnessToColour.ts
   const listingDate = new Date(Number(listingTimestamp[0]));
   // Define a value to consider a listing maximally fresh
   const maxFresh = currDate.valueOf() - oldDate.valueOf();
@@ -85,13 +80,7 @@ export default function PropertyMarker(props: Props) {
   };
 
   return (
-    <AdvancedMarker
-      ref={markerRef}
-      position={coords}
-      draggable={true}
-      gmpClickable
-      zIndex={Number(infoWindowOpen) * 5}
-    >
+    <AdvancedMarker position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
       <div className={`flex flex-col justify-end items-center `}>
         <a
           href={listingURL}
@@ -117,7 +106,11 @@ export default function PropertyMarker(props: Props) {
           <div className="marker-triangle" style={{ borderTop: `0.5rem solid ${moneyBackground}` }}></div>
         </a>
         <a href={listingURL} target="_blank" className="marker-info text-base">
-          {infoWindowOpen && <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} details={property} />}
+          <PropertyInfo
+            infoWindowOpen={infoWindowOpen}
+            setInfoWindowOpen={setInfoWindowOpen}
+            details={property}
+          />
         </a>
       </div>
     </AdvancedMarker>

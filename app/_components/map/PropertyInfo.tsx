@@ -7,16 +7,21 @@ import "../../_styles/markers.css";
 interface Props {
   details: Listing;
   // marker: any;
+  infoWindowOpen: boolean;
   setInfoWindowOpen: (status: boolean) => void;
 }
 
 export default function PropertyInfo(props: Props) {
   // Sample date string
+  const infoWindowOpen = props.infoWindowOpen;
   const baseURL = "https://www.tmsandbox.co.nz/";
   const listingURL = baseURL + "a/" + props.details.ListingId;
 
   return (
-    <div className="flex flex-row rounded-lg w-[20rem] h-[7.5rem] bg-info border-solid border-2 border-content-muted">
+    <div
+      className="flex flex-row rounded-lg w-[20rem] h-[7.5rem] bg-info border-solid border-2 border-content-muted"
+      style={{ display: infoWindowOpen ? "flex" : "none" }}
+    >
       {props.details.PictureHref ? (
         <img
           src={props.details.PictureHref}
