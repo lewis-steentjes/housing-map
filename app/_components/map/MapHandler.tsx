@@ -23,7 +23,9 @@ export default function MapHandler() {
   const { filters } = useContext(FilterContext);
   const filteredProperties = properties; // Try using server-side filtering only || filterProperties(filters, properties);
   const fetchProperties = async () => {
-    setProperties(await getTradeMe(bounds, filters));
+    const retProperties = await getTradeMe(bounds, filters);
+    setProperties(retProperties);
+    console.log("🏡", retProperties);
   };
 
   const handleCameraChange = (ev: MapCameraChangedEvent) => {
@@ -58,7 +60,7 @@ export default function MapHandler() {
           .map((property: Listing, index: number) => {
             return (
               <PropertyMarker
-                key={index}
+                key={property.ListingId}
                 property={property}
                 bounds={bounds}
                 history={history}

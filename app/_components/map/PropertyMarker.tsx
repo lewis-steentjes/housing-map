@@ -28,19 +28,19 @@ export default function PropertyMarker(props: Props) {
   const [moneyText, setMoneyText] = useState("#FEFE02");
 
   // Close info window when component is re-rendered
-  useEffect(() => {
-    setInfoWindowOpen(false);
-  }, [props.bounds]);
+  // useEffect(() => {
+  //   setInfoWindowOpen(false);
+  // }, [props.bounds]);
 
   useEffect(() => {
     if (history[property.ListingId] === true) {
-      console.log("👩‍🔧", property.ListingId);
+      // Set money colour to seen
       setMoneyText("#bb8d37");
     } else {
-      console.log("oioi 💀", property.ListingId);
+      // Set money colour to unseen
       setMoneyText("#FEFE02");
     }
-  }, [props.bounds, property.ListingId, history]);
+  }, [props.bounds, history, property.ListingId]);
 
   const [markerRef, marker] = useAdvancedMarkerRef();
   const baseURL = "https://www.tmsandbox.co.nz/";
