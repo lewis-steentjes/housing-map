@@ -22,6 +22,7 @@ export async function getTradeMe(bounds: Bounds, filters: SlidersObject) {
     const result = await axios.get(rootUrl, { params: searchParams });
     return result.data.List as Listing[];
   } catch (error: any) {
-    return error;
+    console.log("Error getting property listings.", error);
+    return [] as Listing[];
   }
 }
