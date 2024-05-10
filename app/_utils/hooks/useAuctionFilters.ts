@@ -33,7 +33,7 @@ export default function useAuctionFilters() {
     discrete: false,
     colour: "green",
     label: "Min. Price",
-    unit: ",000$",
+    unit: " k",
   };
   const maxPrice: SliderSettings = {
     value: 1500,
@@ -44,7 +44,7 @@ export default function useAuctionFilters() {
     discrete: false,
     colour: "green",
     label: "Max. Price",
-    unit: ",000$",
+    unit: " k",
   };
 
   const listingAge: SliderSettings = {

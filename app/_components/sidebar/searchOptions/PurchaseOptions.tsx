@@ -7,7 +7,7 @@ import FilterDoubleSlider from "./FilterDoubleSlider";
 
 export default function AuctionOptions() {
   const { filters } = useContext(FilterContext);
-  const [auctionFilters, setAuctionFilters] = [filters.Auction.filters, filters.Auction.setFilters];
+  const [auctionFilters, setAuctionFilters] = [filters.Purchase.filters, filters.Purchase.setFilters];
 
   return (
     <div className="mt-2">

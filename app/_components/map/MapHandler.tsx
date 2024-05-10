@@ -6,6 +6,7 @@ import { getTradeMe } from "../../_utils/clientApi/tradeMeClient";
 import PropertyMarker from "./PropertyMarker";
 import { Listing } from "@/app/_types/Listing";
 import { FilterContext } from "@/app/_utils/contexts/FilterContext";
+import { ModeContext } from "@/app/_utils/contexts/ModeContext";
 import mergeProperties from "@/app/_utils/logic/mergeProperties";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -20,11 +21,10 @@ export default function MapHandler() {
   });
   const [history, setHistory] = useState({});
   const [properties, setProperties] = useState<Listing[]>([]);
-  const { filters, currentMode } = useContext(FilterContext);
+  const { filters } = useContext(FilterContext);
+  const { currentMode } = useContext(ModeContext);
   const fetchProperties = async () => {
-    const retProperties = await getTradeMe(bounds, filters[currentMode].filters);
-
-    console.log("🏡", retProperties);
+    const retProperties = await getTradeMe(bounds, filters, currentMode);
     setProperties(mergeProperties(retProperties, properties));
   };
 
@@ -34,18 +34,18 @@ export default function MapHandler() {
 
   useEffect(() => {
     const timer = setTimeout(fetchProperties, 500);
+    console.log("sneaky fetch"); // System sense async fetch THEN deletes data, THEN refills. FUCK!
     return () => clearTimeout(timer);
   }, [bounds, filters]); // ESlint doesn't like this but it works. Probably better to execute this stuff in the event handler
 
   // Invalidate cached properties if the user changes their filter settings
   useEffect(() => {
     setProperties([]);
-  }, [filters]);
+  }, [filters, currentMode]);
 
   if (!API_KEY) {
     throw new Error("No API key found for Google Maps");
   }
-  console.log(properties);
   return (
     <APIProvider apiKey={API_KEY}>
       <Map

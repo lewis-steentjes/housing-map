@@ -4,7 +4,7 @@ import { SliderSettings, SlidersObject } from "@/app/_types/Slider";
 export interface SuperSettings {
   [key: string]: SuperSetting;
   Rental: SuperSetting;
-  Auction: SuperSetting;
+  Purchase: SuperSetting;
 }
 
 interface SuperSetting {
@@ -14,15 +14,11 @@ interface SuperSetting {
 
 interface FilterContextType {
   filters: SuperSettings;
-  currentMode: string;
-  setCurrentMode: (value: string) => void;
 }
 
 export const FilterContext = createContext<FilterContextType>({
   filters: {
     Rental: {} as SuperSetting,
-    Auction: {} as SuperSetting,
+    Purchase: {} as SuperSetting,
   },
-  currentMode: "",
-  setCurrentMode: () => {},
 });
