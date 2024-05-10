@@ -66,9 +66,11 @@ export default function PropertyMarker(props: Props) {
 
   const handleTap = () => {
     setInfoWindowOpen(!infoWindowOpen);
-    const newHist: History = { ...history };
-    newHist[property.ListingId] = true;
-    setHistory(newHist);
+    if (!infoWindowOpen) {
+      const newHist: History = { ...history };
+      newHist[property.ListingId] = true;
+      setHistory(newHist);
+    }
   };
 
   const handleHoverOn = () => {
@@ -83,12 +85,20 @@ export default function PropertyMarker(props: Props) {
   };
 
   return (
-    <AdvancedMarker ref={markerRef} position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
+    <AdvancedMarker
+      ref={markerRef}
+      position={coords}
+      draggable={true}
+      gmpClickable
+      zIndex={Number(infoWindowOpen) * 5}
+    >
       <div className={`flex flex-col justify-end items-center `}>
         <a
           href={listingURL}
           target="_blank"
-          className={"flex flex-col justify-end items-center text-base hover:text-lg  duration-150"}
+          className={
+            "flex flex-col justify-end items-center text-base hover:text-lg hover:pb-1  duration-150"
+          }
           style={
             !history[property.ListingId]
               ? { filter: `drop-shadow(0.0rem 0.0rem 0.2rem ${listingColour})` }
@@ -96,7 +106,7 @@ export default function PropertyMarker(props: Props) {
           }
           onTouchStart={handleTap}
           onMouseOver={handleHoverOn}
-          onMouseOut={handleHoverOff}
+          onMouseLeave={handleHoverOff}
         >
           <div
             className={`marker-money ${balatro.className} `}
