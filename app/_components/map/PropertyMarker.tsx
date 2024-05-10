@@ -83,23 +83,25 @@ export default function PropertyMarker(props: Props) {
   const markerHeight = Number(infoWindowOpen) * 18 + 2.25 + "rem";
   return (
     <AdvancedMarker ref={markerRef} position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
-      <a
-        href={listingURL}
-        target="_blank"
-        className={`flex flex-col justify-end items-center text-base hover:text-lg  duration-500`}
-        style={{ filter: `drop-shadow(0rem 0rem 0.2rem ${listingColour})` }}
-        onTouchStart={handleTap}
-        onMouseOver={handleHoverOn}
-        onMouseOut={handleHoverOff}
-      >
-        <div className={`marker-money ${balatro.className} `} style={{ color: `${moneyText}` }}>
-          {reformatTitle(property.Title)}
-        </div>
-        <div className="marker-triangle "></div>
-        <a href={listingURL} target="_blank" className="marker-info">
+      <div className={`flex flex-col justify-end items-center `}>
+        <a
+          href={listingURL}
+          target="_blank"
+          className={"flex flex-col justify-end items-center text-base hover:text-lg  duration-150"}
+          style={{ filter: `drop-shadow(0.1rem 0.1rem 0.2rem ${listingColour})` }}
+          onTouchStart={handleTap}
+          onMouseOver={handleHoverOn}
+          onMouseOut={handleHoverOff}
+        >
+          <div className={`marker-money ${balatro.className} `} style={{ color: `${moneyText}` }}>
+            {reformatTitle(property.Title)}
+          </div>
+          <div className="marker-triangle "></div>
+        </a>
+        <a href={listingURL} target="_blank" className="marker-info text-base">
           {infoWindowOpen && <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} details={property} />}
         </a>
-      </a>
+      </div>
     </AdvancedMarker>
   );
 }

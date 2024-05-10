@@ -4,6 +4,7 @@
 .marker-info {
     position: absolute;
     transform: translateY(-3rem);
+    filter: drop-shadow(0.25rem 0.25rem 0.5rem #00000044);
 }
 
 .marker-content {
