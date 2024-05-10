@@ -19,7 +19,7 @@ export default function MapHandler() {
     east: 172.6596792811699,
   });
   const [history, setHistory] = useState({});
-  const [properties, setProperties] = useState([]);
+  const [properties, setProperties] = useState<Listing[]>([]);
   const { filters } = useContext(FilterContext);
   const filteredProperties = properties; // Try using server-side filtering only || filterProperties(filters, properties);
   const fetchProperties = async () => {

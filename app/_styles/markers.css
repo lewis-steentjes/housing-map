@@ -11,17 +11,11 @@
 }
 
 .marker-money {
-    color: #ecf87f;
     text-shadow: 2px 2px 0px #00000044;
     padding: 2px 0.4rem 3px 0.4rem;
     border-radius: 0.375rem;
     width: fit-content;
     height: auto;
-    background-color: #59981a;
-}
-.marker-money-viewed {
-    color: #bf7006;
-    /* #bb8d37; */
 }
 
 .marker-triangle {

@@ -55,7 +55,7 @@ export default function PropertyMarker(props: Props) {
   const listingTimestamp = property.StartDate.match(/\d+/);
   // !!!!!REMOVE THIS BIT LATER AND MAKE IT WORK NICER!!!!!!!!!!!!!!!!!!!!!!
   if (!listingTimestamp) {
-    console.log("No timestamp found for listing: ", property.ListingId);
+    console.log("No timestamp found for listing. ", property.ListingId);
     return null;
   }
   const listingDate = new Date(Number(listingTimestamp[0]));
@@ -82,8 +82,6 @@ export default function PropertyMarker(props: Props) {
     setHistory(newHist);
   };
 
-  // Add size to flex container for info/marker if info box opens.
-  const markerHeight = Number(infoWindowOpen) * 18 + 2.25 + "rem";
   return (
     <AdvancedMarker ref={markerRef} position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
       <div className={`flex flex-col justify-end items-center `}>
@@ -102,7 +100,7 @@ export default function PropertyMarker(props: Props) {
           >
             {reformatTitle(property.Title)}
           </div>
-          <div className="marker-triangle" style={{ "border-top": `0.5rem solid ${moneyBackground}` }}></div>
+          <div className="marker-triangle" style={{ borderTop: `0.5rem solid ${moneyBackground}` }}></div>
         </a>
         <a href={listingURL} target="_blank" className="marker-info text-base">
           {infoWindowOpen && <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} details={property} />}
