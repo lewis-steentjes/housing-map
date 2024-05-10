@@ -1,7 +1,7 @@
 import { SliderSettings } from "@/app/_types/Slider";
 import { useState } from "react";
 
-export default function useFilters() {
+export default function useAuctionFilters() {
   const bathrooms: SliderSettings = {
     value: 1,
     min: 1,
@@ -33,7 +33,7 @@ export default function useFilters() {
     discrete: false,
     colour: "green",
     label: "Min. Price",
-    unit: ".00$",
+    unit: ",000$",
   };
   const maxPrice: SliderSettings = {
     value: 1500,
@@ -44,7 +44,7 @@ export default function useFilters() {
     discrete: false,
     colour: "green",
     label: "Max. Price",
-    unit: ".00$",
+    unit: ",000$",
   };
 
   const listingAge: SliderSettings = {

@@ -5,7 +5,6 @@ import { useEffect, useState, useContext } from "react";
 import { getTradeMe } from "../../_utils/clientApi/tradeMeClient";
 import PropertyMarker from "./PropertyMarker";
 import { Listing } from "@/app/_types/Listing";
-import filterProperties from "@/app/_utils/logic/filterProperties";
 import { FilterContext } from "@/app/_utils/contexts/FilterContext";
 import mergeProperties from "@/app/_utils/logic/mergeProperties";
 
@@ -21,10 +20,10 @@ export default function MapHandler() {
   });
   const [history, setHistory] = useState({});
   const [properties, setProperties] = useState<Listing[]>([]);
-  const { filters } = useContext(FilterContext);
-  const filteredProperties = properties; // Try using server-side filtering only || filterProperties(filters, properties);
+  const { filters, currentMode } = useContext(FilterContext);
   const fetchProperties = async () => {
-    const retProperties = await getTradeMe(bounds, filters);
+    const retProperties = await getTradeMe(bounds, filters[currentMode].filters);
+
     console.log("🏡", retProperties);
     setProperties(mergeProperties(retProperties, properties));
   };
@@ -38,15 +37,15 @@ export default function MapHandler() {
     return () => clearTimeout(timer);
   }, [bounds, filters]); // ESlint doesn't like this but it works. Probably better to execute this stuff in the event handler
 
-  // useEffect(() => {
-  //   // Delete cached properties if the user changes their filter settings
-  //   setProperties([]);
-  // }, [filters]);
-  //
+  // Invalidate cached properties if the user changes their filter settings
+  useEffect(() => {
+    setProperties([]);
+  }, [filters]);
+
   if (!API_KEY) {
     throw new Error("No API key found for Google Maps");
   }
-
+  console.log(properties);
   return (
     <APIProvider apiKey={API_KEY}>
       <Map
@@ -59,21 +58,17 @@ export default function MapHandler() {
         clickableIcons={false}
         onCameraChanged={handleCameraChange}
       >
-        {filteredProperties // Sort to organise natural Z positions <- If we sort prior to map we can remove this!
-          ?.sort(
-            (a: Listing, b: Listing) => Number(a.StartDate.match(/\d+/)) - Number(b.StartDate.match(/\d+/)),
-          )
-          .map((property: Listing, index: number) => {
-            return (
-              <PropertyMarker
-                key={property.ListingId}
-                property={property}
-                bounds={bounds}
-                history={history}
-                setHistory={setHistory}
-              />
-            );
-          })}
+        {properties.map((property: Listing, index: number) => {
+          return (
+            <PropertyMarker
+              key={property.ListingId}
+              property={property}
+              bounds={bounds}
+              history={history}
+              setHistory={setHistory}
+            />
+          );
+        })}
         <div className="bg-[#0000FFAA] w-12 h-10 absolute bottom-0 right-0 rounded-md m-4 flex justify-center items-center ">
           <span className="text-2xl">{properties.length}</span>
         </div>

@@ -1,18 +1,28 @@
 import { createContext } from "react";
 import { SliderSettings, SlidersObject } from "@/app/_types/Slider";
 
-interface FilterContextType {
+export interface SuperSettings {
+  [key: string]: SuperSetting;
+  Rental: SuperSetting;
+  Auction: SuperSetting;
+}
+
+interface SuperSetting {
   filters: SlidersObject;
   setFilters: (value: SlidersObject) => void;
 }
 
+interface FilterContextType {
+  filters: SuperSettings;
+  currentMode: string;
+  setCurrentMode: (value: string) => void;
+}
+
 export const FilterContext = createContext<FilterContextType>({
   filters: {
-    bedrooms: {} as SliderSettings,
-    bathrooms: {} as SliderSettings,
-    minPrice: {} as SliderSettings,
-    maxPrice: {} as SliderSettings,
-    listingAge: {} as SliderSettings,
+    Rental: {} as SuperSetting,
+    Auction: {} as SuperSetting,
   },
-  setFilters: () => {},
+  currentMode: "",
+  setCurrentMode: () => {},
 });
