@@ -3,7 +3,7 @@ import { SliderSettings, SlidersObject } from "@/app/_types/Slider";
 
 export interface SuperSettings {
   [key: string]: SuperSetting;
-  Rental: SuperSetting;
+  Rent: SuperSetting;
   Purchase: SuperSetting;
 }
 
@@ -18,7 +18,7 @@ interface FilterContextType {
 
 export const FilterContext = createContext<FilterContextType>({
   filters: {
-    Rental: {} as SuperSetting,
+    Rent: {} as SuperSetting,
     Purchase: {} as SuperSetting,
   },
 });

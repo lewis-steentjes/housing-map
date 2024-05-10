@@ -37,7 +37,7 @@ function addProperty(property: Listing, neighbourhood: Listing[]) {
 
 export default function mergeProperties(homes: Listing[], neighbourhood: Listing[]) {
   if (neighbourhood.length === 0) {
-    return homes;
+    return homes.sort((a, b) => a.ListingId - b.ListingId);
   }
   for (let i = 0; i < homes.length; i++) {
     addProperty(homes[i], neighbourhood);

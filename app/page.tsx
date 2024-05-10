@@ -13,34 +13,26 @@ import { useState } from "react";
 
 export default function Home() {
   const queryClient = new QueryClient();
+  const [currentMode, setCurrentMode] = useState("Rent");
+
   const [rentFilters, setRentalFilters] = useRentalFilters();
   const [purchaseFilters, setPurchaseFilters] = useAuctionFilters();
   const filters = {
-    Rental: { filters: rentFilters, setFilters: setRentalFilters },
+    Rent: { filters: rentFilters, setFilters: setRentalFilters },
     Purchase: { filters: purchaseFilters, setFilters: setPurchaseFilters },
   };
-  const [currentMode, setCurrentMode] = useState("Rental");
-  // const [history, setHistory] = useHistory();
-  // console.log("hist", history);
-  // const newhist = history;
-  // newhist.set("Roger", "seen");
-  // console.log("nhis", newhist);
+
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <ModeContext.Provider value={{ currentMode, setCurrentMode }}>
-          <FilterContext.Provider
-            value={{
-              filters,
-            }}
-          >
+        <FilterContext.Provider value={{ filters }}>
+          <ModeContext.Provider value={{ currentMode, setCurrentMode }}>
             {/* <HistoryContext.Provider value={{ history, setHistory }}> */}
             <MapHandler />
             {/* </HistoryContext.Provider> */}
-
-            <SidebarContainer />
-          </FilterContext.Provider>
-        </ModeContext.Provider>
+          </ModeContext.Provider>
+          <SidebarContainer />
+        </FilterContext.Provider>
       </QueryClientProvider>
     </>
   );

@@ -7,7 +7,7 @@ import FilterDoubleSlider from "./FilterDoubleSlider";
 
 export default function RentalOptions() {
   const { filters } = useContext(FilterContext);
-  const [rentalFilters, setRentalFilters] = [filters.Rental.filters, filters.Rental.setFilters];
+  const [rentalFilters, setRentalFilters] = [filters.Rent.filters, filters.Rent.setFilters];
   return (
     <div className="mt-2">
       <FilterSlider filter={"bedrooms"} setFilters={setRentalFilters} filters={rentalFilters} />

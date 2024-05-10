@@ -28,7 +28,7 @@ async function getRentals(bounds: Bounds, filters: SlidersObject): Promise<Listi
     bedrooms_min: String(filters.bedrooms.value),
     bathrooms_min: String(filters.bathrooms.value),
     price_min: String(filters.minPrice.value),
-    price_max: String(filters.maxPrice.value),
+    price_max: String(2000000),
     sort_order: "ExpiryDesc",
   });
   try {
@@ -49,7 +49,7 @@ async function getPurchase(bounds: Bounds, filters: SlidersObject): Promise<List
     bedrooms_min: String(filters.bedrooms.value),
     bathrooms_min: String(filters.bathrooms.value),
     price_min: String(filters.minPrice.value),
-    price_max: String(filters.maxPrice.value),
+    price_max: String(2000000),
     sort_order: "ExpiryDesc",
   });
   try {
