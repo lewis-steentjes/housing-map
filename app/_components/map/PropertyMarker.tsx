@@ -80,7 +80,7 @@ export default function PropertyMarker(props: Props) {
   };
 
   // Add size to flex container for info/marker if info box opens.
-  const markerHeight = Number(infoWindowOpen) * 7.75 + 2.5 + "rem";
+  const markerHeight = Number(infoWindowOpen) * 8 + 2.25 + "rem";
   return (
     <div className="relative">
       <AdvancedMarker ref={markerRef} position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
@@ -91,7 +91,7 @@ export default function PropertyMarker(props: Props) {
           <a
             href={listingURL}
             target="_blank"
-            className={`marker-container text-base hover:text-lg `}
+            className={`marker-container text-base hover:text-lg duration-75 `}
             style={{ filter: `drop-shadow(0rem 0rem 0.2rem ${listingColour})` }}
             onMouseOver={handleHoverOn}
             onMouseOut={handleHoverOff}
