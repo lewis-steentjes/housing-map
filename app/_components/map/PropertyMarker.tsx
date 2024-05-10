@@ -26,7 +26,8 @@ export default function PropertyMarker(props: Props) {
 
   const [infoWindowOpen, setInfoWindowOpen] = useState(false);
   const [moneyText, setMoneyText] = useState("#FEFE02");
-
+  const [moneyBackground, setMoneyBackground] = useState("#59981A");
+  // const moneyBackground = "#4F8717";
   // Close info window when component is re-rendered
   // useEffect(() => {
   //   setInfoWindowOpen(false);
@@ -35,10 +36,12 @@ export default function PropertyMarker(props: Props) {
   useEffect(() => {
     if (history[property.ListingId] === true) {
       // Set money colour to seen
-      setMoneyText("#bb8d37");
+      setMoneyText("#E4E896");
+      setMoneyBackground("#4F8717");
     } else {
       // Set money colour to unseen
-      setMoneyText("#FEFE02");
+      setMoneyText("#FEFE4D");
+      setMoneyBackground("#59981A");
     }
   }, [props.bounds, history, property.ListingId]);
 
@@ -93,10 +96,13 @@ export default function PropertyMarker(props: Props) {
           onMouseOver={handleHoverOn}
           onMouseOut={handleHoverOff}
         >
-          <div className={`marker-money ${balatro.className} `} style={{ color: `${moneyText}` }}>
+          <div
+            className={`marker-money ${balatro.className} `}
+            style={{ color: `${moneyText}`, background: `${moneyBackground}` }}
+          >
             {reformatTitle(property.Title)}
           </div>
-          <div className="marker-triangle "></div>
+          <div className="marker-triangle" style={{ "border-top": `0.5rem solid ${moneyBackground}` }}></div>
         </a>
         <a href={listingURL} target="_blank" className="marker-info text-base">
           {infoWindowOpen && <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} details={property} />}
