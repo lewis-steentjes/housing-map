@@ -53,7 +53,7 @@ export default function MapHandler() {
         clickableIcons={false}
         onCameraChanged={handleCameraChange}
       >
-        {filteredProperties
+        {filteredProperties // Sort to organise natural Z positions <- If we sort prior to map we can remove this!
           ?.sort(
             (a: Listing, b: Listing) => Number(a.StartDate.match(/\d+/)) - Number(b.StartDate.match(/\d+/)),
           )

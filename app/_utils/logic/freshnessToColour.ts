@@ -15,7 +15,7 @@ export default function freshnessToColour(freshness: number) {
   green += otherTint;
   // let brightness = Math.round(255 * freshness * (2 - freshness));
   let brightness = 255;
-  red = Math.round(255 * (1 - freshness));
+  red = Math.round(255 * (0.5 - freshness));
   green = Math.round(255 * freshness);
 
   const colour =

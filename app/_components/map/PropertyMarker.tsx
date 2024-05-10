@@ -80,35 +80,26 @@ export default function PropertyMarker(props: Props) {
   };
 
   // Add size to flex container for info/marker if info box opens.
-  const markerHeight = Number(infoWindowOpen) * 8 + 2.25 + "rem";
+  const markerHeight = Number(infoWindowOpen) * 18 + 2.25 + "rem";
   return (
     <AdvancedMarker ref={markerRef} position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
-      <div className="marker-container">
-        <div
-          className="flex flex-col items-center justify-end gap-1 relative "
-          style={{ height: markerHeight }}
-        >
-          <a href={listingURL} target="_blank">
-            {infoWindowOpen && <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} details={property} />}
-          </a>
-          <a
-            href={listingURL}
-            target="_blank"
-            className={`text-base hover:text-lg duration-100`}
-            style={{ filter: `drop-shadow(0rem 0rem 0.2rem ${listingColour})` }}
-            onMouseOver={handleHoverOn}
-            onMouseOut={handleHoverOff}
-            onTouchStart={handleTap}
-          >
-            <div>
-              <div className={`marker-money ${balatro.className} `} style={{ color: `${moneyText}` }}>
-                {reformatTitle(property.Title)}
-              </div>
-              <div className="marker-triangle "></div>
-            </div>
-          </a>
+      <a
+        href={listingURL}
+        target="_blank"
+        className={`flex flex-col justify-end items-center text-base hover:text-lg  duration-500`}
+        style={{ filter: `drop-shadow(0rem 0rem 0.2rem ${listingColour})` }}
+        onTouchStart={handleTap}
+        onMouseOver={handleHoverOn}
+        onMouseOut={handleHoverOff}
+      >
+        <div className={`marker-money ${balatro.className} `} style={{ color: `${moneyText}` }}>
+          {reformatTitle(property.Title)}
         </div>
-      </div>
+        <div className="marker-triangle "></div>
+        <a href={listingURL} target="_blank" className="marker-info">
+          {infoWindowOpen && <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} details={property} />}
+        </a>
+      </a>
     </AdvancedMarker>
   );
 }
