@@ -16,7 +16,7 @@ export default function PropertyInfo(props: Props) {
   const listingURL = baseURL + "a/" + props.details.ListingId;
 
   return (
-    <div className="flex flex-row rounded-lg w-64 h-24 bg-info border-solid border-2 border-content-muted">
+    <div className="flex flex-row rounded-lg w-[20rem] h-[7.5rem] bg-info border-solid border-2 border-content-muted">
       {props.details.PictureHref ? (
         <img
           src={props.details.PictureHref}

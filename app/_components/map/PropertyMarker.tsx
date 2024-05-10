@@ -85,7 +85,7 @@ export default function PropertyMarker(props: Props) {
   return (
     <div className="relative">
       <AdvancedMarker ref={markerRef} position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center h-[10.25rem] justify-between">
           <a href={listingURL} target="_blank">
             {infoWindowOpen && <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} details={property} />}
           </a>
