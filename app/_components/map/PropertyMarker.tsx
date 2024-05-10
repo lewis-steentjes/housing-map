@@ -79,13 +79,12 @@ export default function PropertyMarker(props: Props) {
     setHistory(newHist);
   };
 
-  // Check if listing has been seen before to determine text colour
-  // Just web dev things
-
+  // Add size to flex container for info/marker if info box opens.
+  const markerHeight = Number(infoWindowOpen) * 7.75 + 2.5 + "rem";
   return (
     <div className="relative">
       <AdvancedMarker ref={markerRef} position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
-        <div className="flex flex-col items-center h-[10.25rem] justify-between">
+        <div className="flex flex-col items-center justify-between" style={{ height: markerHeight }}>
           <a href={listingURL} target="_blank">
             {infoWindowOpen && <PropertyInfo setInfoWindowOpen={setInfoWindowOpen} details={property} />}
           </a>
