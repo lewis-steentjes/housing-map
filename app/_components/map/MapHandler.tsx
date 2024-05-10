@@ -7,6 +7,7 @@ import PropertyMarker from "./PropertyMarker";
 import { Listing } from "@/app/_types/Listing";
 import filterProperties from "@/app/_utils/logic/filterProperties";
 import { FilterContext } from "@/app/_utils/contexts/FilterContext";
+import mergeProperties from "@/app/_utils/logic/mergeProperties";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
@@ -24,8 +25,8 @@ export default function MapHandler() {
   const filteredProperties = properties; // Try using server-side filtering only || filterProperties(filters, properties);
   const fetchProperties = async () => {
     const retProperties = await getTradeMe(bounds, filters);
-    setProperties(retProperties);
     console.log("🏡", retProperties);
+    setProperties(mergeProperties(retProperties, properties));
   };
 
   const handleCameraChange = (ev: MapCameraChangedEvent) => {
@@ -37,6 +38,11 @@ export default function MapHandler() {
     return () => clearTimeout(timer);
   }, [bounds, filters]); // ESlint doesn't like this but it works. Probably better to execute this stuff in the event handler
 
+  // useEffect(() => {
+  //   // Delete cached properties if the user changes their filter settings
+  //   setProperties([]);
+  // }, [filters]);
+  //
   if (!API_KEY) {
     throw new Error("No API key found for Google Maps");
   }

@@ -89,7 +89,11 @@ export default function PropertyMarker(props: Props) {
           href={listingURL}
           target="_blank"
           className={"flex flex-col justify-end items-center text-base hover:text-lg  duration-150"}
-          style={{ filter: `drop-shadow(0.1rem 0.1rem 0.2rem ${listingColour})` }}
+          style={
+            !history[property.ListingId]
+              ? { filter: `drop-shadow(0.0rem 0.0rem 0.2rem ${listingColour})` }
+              : { filter: `drop-shadow(0.0rem 0.0rem 0.1rem #00000088)` }
+          }
           onTouchStart={handleTap}
           onMouseOver={handleHoverOn}
           onMouseOut={handleHoverOff}
