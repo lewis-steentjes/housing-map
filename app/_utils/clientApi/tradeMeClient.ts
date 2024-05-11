@@ -11,14 +11,11 @@ export async function getTradeMe(
   filters: SuperSettings,
   currentMode: string,
 ): Promise<Listing[]> {
-  console.log("PING SERVER");
   if (currentMode == "Rent") {
     const proppos = await getRentals(bounds, filters[currentMode].filters);
-    console.log("🏡 RENTEEALS Moite", proppos);
     return proppos;
   } else {
     const proppos = await getPurchase(bounds, filters[currentMode].filters);
-    console.log("🏡 SALE SALE BUY B", proppos);
     return proppos;
   }
 }
