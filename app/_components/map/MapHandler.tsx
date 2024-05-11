@@ -24,10 +24,17 @@ export default function MapHandler() {
   const [properties, setProperties] = useState<Listing[]>([]);
   const { currentMode } = useContext(ModeContext);
   const { filters } = useContext(FilterContext);
+  const [prevFilters, setPrevFilters] = useState(filters);
+  const [prevMode, setPrevMode] = useState(currentMode);
 
-  const fetchProperties = async () => {
+  const fetchExtraProperties = async () => {
     const retProperties = await getTradeMe(bounds, filters, currentMode);
     setProperties(mergeProperties(retProperties, properties));
+  };
+
+  const fetchFreshProperties = async () => {
+    const retProperties = await getTradeMe(bounds, filters, currentMode);
+    setProperties(mergeProperties(retProperties, []));
   };
 
   const handleCameraChange = (ev: MapCameraChangedEvent) => {
@@ -35,22 +42,15 @@ export default function MapHandler() {
   };
 
   useEffect(() => {
-    const timer = setTimeout(fetchProperties, 500);
-    console.log("sneaky fetch"); // System sense async fetch THEN deletes data, THEN refills. FUCK!
+    if (currentMode != prevMode || filters != prevFilters) {
+      const timer = setTimeout(fetchFreshProperties, 500);
+      setPrevMode(currentMode);
+      setPrevFilters(filters);
+      return () => clearTimeout(timer);
+    }
+    const timer = setTimeout(fetchExtraProperties, 500);
     return () => clearTimeout(timer);
-  }, [bounds, filters]); // ESlint doesn't like this but it works. Probably better to execute this stuff in the event handler
-
-  // Invalidate cached properties if the user changes their filter settings
-
-  useEffect(() => {
-    console.log("💦💦💦💦TOGGLE MOGEDE  💦  ");
-    setProperties([]);
-  }, [filters]);
-
-  useEffect(() => {
-    console.log("🧨🧨🧨🧨TOGGLE MOGEDE  🧨  ");
-    setProperties([]);
-  }, [currentMode]);
+  }, [bounds, filters, currentMode]); // ESlint doesn't like this but it works. Probably better to execute this stuff in the event handler
 
   if (!API_KEY) {
     throw new Error("No API key found for Google Maps");
