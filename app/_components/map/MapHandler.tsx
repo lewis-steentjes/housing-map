@@ -79,7 +79,6 @@ export default function MapHandler() {
           );
         })}
         <div className="bg-[#0000FFAA] w-12 h-10 absolute bottom-0 right-0 rounded-md m-16 flex justify-center items-center ">
-          <ModeSwitch />
           <span className="text-2xl">{properties.length}</span>
         </div>
       </Map>

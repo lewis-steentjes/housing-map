@@ -30,8 +30,9 @@ export default function Home() {
             {/* <HistoryContext.Provider value={{ history, setHistory }}> */}
             <MapHandler />
             {/* </HistoryContext.Provider> */}
+
+            <SidebarContainer />
           </ModeContext.Provider>
-          <SidebarContainer />
         </FilterContext.Provider>
       </QueryClientProvider>
     </>
