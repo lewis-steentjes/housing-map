@@ -43,12 +43,12 @@ export default function MapHandler() {
 
   useEffect(() => {
     if (currentMode != prevMode || filters != prevFilters) {
-      const timer = setTimeout(fetchFreshProperties, 500);
+      const timer = setTimeout(fetchFreshProperties, 350);
       setPrevMode(currentMode);
       setPrevFilters(filters);
       return () => clearTimeout(timer);
     }
-    const timer = setTimeout(fetchExtraProperties, 500);
+    const timer = setTimeout(fetchExtraProperties, 350);
     return () => clearTimeout(timer);
   }, [bounds, filters, currentMode]); // ESlint doesn't like this but it works. Probably better to execute this stuff in the event handler
 
