@@ -3,7 +3,8 @@
 import { APIProvider, Map, MapCameraChangedEvent } from "@vis.gl/react-google-maps";
 import { useEffect, useState, useContext } from "react";
 import { getTradeMe } from "../../_utils/clientApi/tradeMeClient";
-import PropertyMarker from "./PropertyMarker";
+import RentalMarker from "./RentalMarker";
+import SaleMarker from "./SaleMarker";
 import { Listing } from "@/app/_types/Listing";
 import { FilterContext } from "@/app/_utils/contexts/FilterContext";
 import { ModeContext } from "@/app/_utils/contexts/ModeContext";
@@ -44,6 +45,7 @@ export default function MapHandler() {
 
   useEffect(() => {
     if (currentMode != prevMode || filters != prevFilters) {
+      setProperties([]);
       const timer = setTimeout(fetchFreshProperties, 350);
       setPrevMode(currentMode);
       setPrevFilters(filters);
@@ -56,6 +58,7 @@ export default function MapHandler() {
   if (!API_KEY) {
     throw new Error("No API key found for Google Maps");
   }
+  const rentMode = currentMode === "Rent";
   return (
     <APIProvider apiKey={API_KEY}>
       <Map
@@ -69,8 +72,18 @@ export default function MapHandler() {
         onCameraChanged={handleCameraChange}
       >
         {properties.map((property: Listing, index: number) => {
-          return (
-            <PropertyMarker
+          return rentMode ? (
+            <RentalMarker
+              key={property.ListingId}
+              property={property}
+              bounds={bounds}
+              history={history}
+              setHistory={setHistory}
+              currInfoWindow={currInfoWindow}
+              setCurrInfoWindow={setCurrInfoWindow}
+            />
+          ) : (
+            <SaleMarker
               key={property.ListingId}
               property={property}
               bounds={bounds}

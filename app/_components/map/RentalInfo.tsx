@@ -10,7 +10,7 @@ interface Props {
   infoWindowOpen: boolean;
 }
 
-export default function PropertyInfo(props: Props) {
+export default function RentalInfo(props: Props) {
   // Sample date string
   const infoWindowOpen = props.infoWindowOpen;
   const baseURL = "https://www.tmsandbox.co.nz/";

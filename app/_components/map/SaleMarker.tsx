@@ -1,12 +1,12 @@
 import { AdvancedMarker } from "@vis.gl/react-google-maps";
 import { useContext, useEffect, useState } from "react";
 import { Listing } from "@/app/_types/Listing";
-import PropertyInfo from "./PropertyInfo";
 import reformatTitle from "@/app/_utils/logic/reformatTitle";
 import freshnessToColour from "@/app/_utils/logic/freshnessToColour";
 import "../../_styles/markers.css";
 import localFont from "next/font/local";
 import { Bounds } from "@/app/_types/Maps";
+import RentalInfo from "./RentalInfo";
 
 const balatro = localFont({ src: "../../../public/fonts/balatro.otf" });
 
@@ -22,7 +22,7 @@ interface History {
   [key: number]: boolean;
 }
 
-export default function PropertyMarker(props: Props) {
+export default function SaleMarker(props: Props) {
   const { bounds, property, history, setHistory, currInfoWindow, setCurrInfoWindow } = props;
   const [prevBounds, setPrevBounds] = useState<Bounds>(bounds);
 
@@ -81,7 +81,7 @@ export default function PropertyMarker(props: Props) {
     newHist[property.ListingId] = true;
     setHistory(newHist);
   };
-
+  const price = property.PriceDisplay;
   const infoWindowOpen = currInfoWindow == property.ListingId;
   return (
     <AdvancedMarker position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
@@ -105,12 +105,12 @@ export default function PropertyMarker(props: Props) {
             className={`marker-money ${balatro.className} `}
             style={{ color: `${moneyText}`, background: `${moneyBackground}` }}
           >
-            {reformatTitle(property.Title)}
+            {price}
           </div>
           <div className="marker-triangle" style={{ borderTop: `0.5rem solid ${moneyBackground}` }}></div>
         </a>
         <a href={listingURL} target="_blank" className="marker-info text-base">
-          <PropertyInfo infoWindowOpen={infoWindowOpen} details={property} />
+          <RentalInfo infoWindowOpen={infoWindowOpen} details={property} />
         </a>
       </div>
     </AdvancedMarker>

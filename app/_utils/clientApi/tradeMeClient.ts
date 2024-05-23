@@ -13,9 +13,12 @@ export async function getTradeMe(
 ): Promise<Listing[]> {
   if (currentMode == "Rent") {
     const proppos = await getRentals(bounds, filters[currentMode].filters);
+    console.log(proppos);
     return proppos;
   } else {
     const proppos = await getPurchase(bounds, filters[currentMode].filters);
+    console.log(proppos);
+
     return proppos;
   }
 }
