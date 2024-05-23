@@ -22,6 +22,8 @@ interface History {
 
 export default function PropertyMarker(props: Props) {
   const { bounds, property, history, setHistory } = props;
+  const [prevBounds, setPrevBounds] = useState<Bounds>(bounds);
+
   const coords = { lat: property.GeographicLocation.Latitude, lng: property.GeographicLocation.Longitude };
 
   const [infoWindowOpen, setInfoWindowOpen] = useState(false);
@@ -36,6 +38,10 @@ export default function PropertyMarker(props: Props) {
       // Set money colour to unseen
       setMoneyText("#FEFE4D");
       setMoneyBackground("#59981A");
+    }
+    if (prevBounds !== bounds) {
+      setPrevBounds(bounds);
+      setInfoWindowOpen(false);
     }
   }, [props.bounds, history, property.ListingId]);
 
