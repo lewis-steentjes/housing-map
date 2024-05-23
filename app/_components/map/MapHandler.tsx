@@ -21,6 +21,7 @@ export default function MapHandler() {
     east: 172.6596792811699,
   });
   const [history, setHistory] = useState({});
+  const [currInfoWindow, setCurrInfoWindow] = useState(0);
   const [properties, setProperties] = useState<Listing[]>([]);
   const { currentMode } = useContext(ModeContext);
   const { filters } = useContext(FilterContext);
@@ -75,6 +76,8 @@ export default function MapHandler() {
               bounds={bounds}
               history={history}
               setHistory={setHistory}
+              currInfoWindow={currInfoWindow}
+              setCurrInfoWindow={setCurrInfoWindow}
             />
           );
         })}

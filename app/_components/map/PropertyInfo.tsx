@@ -8,7 +8,6 @@ interface Props {
   details: Listing;
   // marker: any;
   infoWindowOpen: boolean;
-  setInfoWindowOpen: (status: boolean) => void;
 }
 
 export default function PropertyInfo(props: Props) {

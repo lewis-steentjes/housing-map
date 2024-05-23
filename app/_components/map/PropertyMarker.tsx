@@ -15,18 +15,19 @@ interface Props {
   bounds: Bounds;
   history: History;
   setHistory: (value: History) => void;
+  currInfoWindow: number;
+  setCurrInfoWindow: (value: number) => void;
 }
 interface History {
   [key: number]: boolean;
 }
 
 export default function PropertyMarker(props: Props) {
-  const { bounds, property, history, setHistory } = props;
+  const { bounds, property, history, setHistory, currInfoWindow, setCurrInfoWindow } = props;
   const [prevBounds, setPrevBounds] = useState<Bounds>(bounds);
 
   const coords = { lat: property.GeographicLocation.Latitude, lng: property.GeographicLocation.Longitude };
 
-  const [infoWindowOpen, setInfoWindowOpen] = useState(false);
   const [moneyText, setMoneyText] = useState("#FEFE02");
   const [moneyBackground, setMoneyBackground] = useState("#59981A");
   useEffect(() => {
@@ -39,11 +40,7 @@ export default function PropertyMarker(props: Props) {
       setMoneyText("#FEFE4D");
       setMoneyBackground("#59981A");
     }
-    if (prevBounds !== bounds) {
-      setPrevBounds(bounds);
-      setInfoWindowOpen(false);
-    }
-  }, [props.bounds, history, property.ListingId]);
+  }, [bounds, history, property.ListingId, props, prevBounds]);
 
   const baseURL = "https://www.tmsandbox.co.nz/";
   const listingURL = baseURL + "a/" + property.ListingId;
@@ -66,7 +63,7 @@ export default function PropertyMarker(props: Props) {
   const listingColour = freshnessToColour(freshness);
 
   const handleTap = () => {
-    setInfoWindowOpen(!infoWindowOpen);
+    setCurrInfoWindow(property.ListingId);
     if (!infoWindowOpen) {
       const newHist: History = { ...history };
       newHist[property.ListingId] = true;
@@ -75,16 +72,17 @@ export default function PropertyMarker(props: Props) {
   };
 
   const handleHoverOn = () => {
-    setInfoWindowOpen(true);
+    setCurrInfoWindow(property.ListingId);
   };
 
   const handleHoverOff = () => {
-    setInfoWindowOpen(false);
+    setCurrInfoWindow(0);
     const newHist: History = { ...history };
     newHist[property.ListingId] = true;
     setHistory(newHist);
   };
 
+  const infoWindowOpen = currInfoWindow == property.ListingId;
   return (
     <AdvancedMarker position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
       <div className={`flex flex-col justify-end items-center `}>
@@ -112,11 +110,7 @@ export default function PropertyMarker(props: Props) {
           <div className="marker-triangle" style={{ borderTop: `0.5rem solid ${moneyBackground}` }}></div>
         </a>
         <a href={listingURL} target="_blank" className="marker-info text-base">
-          <PropertyInfo
-            infoWindowOpen={infoWindowOpen}
-            setInfoWindowOpen={setInfoWindowOpen}
-            details={property}
-          />
+          <PropertyInfo infoWindowOpen={infoWindowOpen} details={property} />
         </a>
       </div>
     </AdvancedMarker>
