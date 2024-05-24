@@ -1,7 +1,7 @@
 import { AdvancedMarker } from "@vis.gl/react-google-maps";
 import { useContext, useEffect, useState } from "react";
 import { Listing } from "@/app/_types/Listing";
-import reformatTitle from "@/app/_utils/logic/reformatTitle";
+import reformatTitleSale from "@/app/_utils/logic/reformatTitleSale";
 import freshnessToColour from "@/app/_utils/logic/freshnessToColour";
 import "../../_styles/markers.css";
 import localFont from "next/font/local";
@@ -105,7 +105,7 @@ export default function SaleMarker(props: Props) {
             className={`marker-money ${balatro.className} `}
             style={{ color: `${moneyText}`, background: `${moneyBackground}` }}
           >
-            {price}
+            {reformatTitleSale(price)}
           </div>
           <div className="marker-triangle" style={{ borderTop: `0.5rem solid ${moneyBackground}` }}></div>
         </a>
