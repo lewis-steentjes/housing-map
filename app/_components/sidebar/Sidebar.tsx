@@ -18,10 +18,10 @@ export default function Sidebar(props: Props) {
   return (
     <div className="flex flex-col container fixed top-0 left-0 w-96 px-4 pt-4 pb-0 bg-slate-600/40 backdrop-blur-md h-full rounded-r-xl text-zinc-100 ">
       <div className="flex flex-row justify-between  content-center items-center">
-        <h1 className="text-3xl font-bold underline ml-2">Filters: </h1>
         <ModeSwitch />
         <CloseButton setIsHidden={props.setIsHidden} />
       </div>
+      <h1 className="text-3xl font-bold underline ml-2">Filters: </h1>
       {currentMode == "Rent" ? <RentalOptions /> : <PurchaseOptions />}
       <div className="grow"></div>
       <div className="">
