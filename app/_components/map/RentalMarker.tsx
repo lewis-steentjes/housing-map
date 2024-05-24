@@ -97,13 +97,13 @@ export default function RentalMarker(props: Props) {
               ? { filter: `drop-shadow(0.0rem 0.0rem 0.2rem ${listingColour})` }
               : { filter: `drop-shadow(0.0rem 0.0rem 0.1rem #00000088)` }
           }
-          onTouchStart={handleTap}
-          onMouseOver={handleHoverOn}
-          onMouseLeave={handleHoverOff}
         >
           <div
             className={`marker-money ${balatro.className} `}
             style={{ color: `${moneyText}`, background: `${moneyBackground}` }}
+            onTouchStart={handleTap}
+            onMouseOver={handleHoverOn}
+            onMouseLeave={handleHoverOff}
           >
             {reformatTitle(property.Title) + ".00 pw"}
           </div>
