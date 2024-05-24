@@ -20,6 +20,7 @@ export default function RentalInfo(props: Props) {
     <div
       className="flex flex-row rounded-lg w-[20rem] h-[7.5rem] bg-info border-solid border-2 border-content-muted"
       style={{ display: infoWindowOpen ? "flex" : "none" }}
+      onClick={() => window.open(listingURL, "_blank")}
     >
       {props.details.PictureHref ? (
         <img
