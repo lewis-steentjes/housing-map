@@ -21,6 +21,7 @@ export default function MapHandler() {
     north: -43.51981267305107,
     east: 172.6596792811699,
   });
+  const [prevBounds, setPrevBounds] = useState(bounds);
   const [history, setHistory] = useState({});
   const [currInfoWindow, setCurrInfoWindow] = useState(0);
   const [properties, setProperties] = useState<Listing[]>([]);
@@ -50,6 +51,11 @@ export default function MapHandler() {
       setPrevMode(currentMode);
       setPrevFilters(filters);
       return () => clearTimeout(timer);
+    }
+
+    if (bounds != prevBounds) {
+      setCurrInfoWindow(0);
+      setPrevBounds(bounds);
     }
     const timer = setTimeout(fetchExtraProperties, 350);
     return () => clearTimeout(timer);
