@@ -7,6 +7,7 @@ import "../../_styles/markers.css";
 import localFont from "next/font/local";
 import { Bounds } from "@/app/_types/Maps";
 import RentalInfo from "./RentalInfo";
+import Link from "next/link";
 
 const balatro = localFont({ src: "../../../public/fonts/balatro.otf" });
 
@@ -71,6 +72,11 @@ export default function RentalMarker(props: Props) {
     }
     if (infoWindowOpen) {
       setCurrInfoWindow(0);
+      console.log("openingg");
+      // Use setTimeout to make it work on Mobile
+      setTimeout(() => {
+        window.open(listingURL, "_top");
+      });
     }
   };
 
@@ -79,7 +85,7 @@ export default function RentalMarker(props: Props) {
   };
 
   const handleHoverOff = () => {
-    //setCurrInfoWindow(0);
+    setCurrInfoWindow(0);
     const newHist: History = { ...history };
     newHist[property.ListingId] = true;
     setHistory(newHist);
@@ -93,7 +99,9 @@ export default function RentalMarker(props: Props) {
         onTouchStart={handleTap}
         onTouchEnd={() => {}}
       >
-        <a
+        <Link
+          href={listingURL}
+          target="_blank"
           className={
             "flex flex-col justify-end items-center text-base hover:text-lg hover:pb-1  duration-150"
           }
@@ -112,10 +120,11 @@ export default function RentalMarker(props: Props) {
             {reformatTitle(property.Title) + ".00 pw"}
           </div>
           <div className="marker-triangle" style={{ borderTop: `0.5rem solid ${moneyBackground}` }}></div>
-        </a>
-        <a href={listingURL} target="_blank" className="marker-info text-base">
+        </Link>
+        {/* <Link href={listingURL} target="_blank" className="marker-info text-base"> */}
+        <Link href={listingURL} target="_blank" className="marker-info text-base">
           <RentalInfo infoWindowOpen={infoWindowOpen} details={property} />
-        </a>
+        </Link>
       </div>
     </AdvancedMarker>
   );
