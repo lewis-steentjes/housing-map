@@ -69,6 +69,9 @@ export default function RentalMarker(props: Props) {
       newHist[property.ListingId] = true;
       setHistory(newHist);
     }
+    if (infoWindowOpen) {
+      setCurrInfoWindow(0);
+    }
   };
 
   const handleHoverOn = () => {
@@ -76,7 +79,7 @@ export default function RentalMarker(props: Props) {
   };
 
   const handleHoverOff = () => {
-    setCurrInfoWindow(0);
+    //setCurrInfoWindow(0);
     const newHist: History = { ...history };
     newHist[property.ListingId] = true;
     setHistory(newHist);
@@ -85,10 +88,12 @@ export default function RentalMarker(props: Props) {
   const infoWindowOpen = currInfoWindow == property.ListingId;
   return (
     <AdvancedMarker position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
-      <div className={`flex flex-col justify-end items-center `}>
+      <div
+        className={`flex flex-col justify-end items-center `}
+        onTouchStart={handleTap}
+        onTouchEnd={() => {}}
+      >
         <a
-          href={listingURL}
-          target="_blank"
           className={
             "flex flex-col justify-end items-center text-base hover:text-lg hover:pb-1  duration-150"
           }
@@ -101,7 +106,6 @@ export default function RentalMarker(props: Props) {
           <div
             className={`marker-money ${balatro.className} `}
             style={{ color: `${moneyText}`, background: `${moneyBackground}` }}
-            onTouchStart={handleTap}
             onMouseOver={handleHoverOn}
             onMouseLeave={handleHoverOff}
           >
