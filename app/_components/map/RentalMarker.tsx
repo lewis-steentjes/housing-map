@@ -93,7 +93,7 @@ export default function RentalMarker(props: Props) {
   const price = property.PriceDisplay;
   const infoWindowOpen = currInfoWindow == property.ListingId;
   return (
-    <AdvancedMarker position={coords} onClick={() => {}} zIndex={Number(infoWindowOpen) * 5}>
+    <AdvancedMarker position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
       <div
         className={`flex flex-col justify-end items-center `}
         onTouchStart={handleTap}
