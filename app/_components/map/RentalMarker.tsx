@@ -63,21 +63,26 @@ export default function RentalMarker(props: Props) {
   const freshness = (listingDate.valueOf() - oldDate.valueOf()) / maxFresh;
   const listingColour = freshnessToColour(freshness);
 
-  const handleTap = () => {
+  const handleTap = (event: any) => {
+    console.log("window open?", infoWindowOpen);
     setCurrInfoWindow(property.ListingId);
+    event.preventDefault();
+    console.log("TAP A TAP TAP");
     if (!infoWindowOpen) {
       const newHist: History = { ...history };
       newHist[property.ListingId] = true;
       setHistory(newHist);
     }
     if (infoWindowOpen) {
-      setCurrInfoWindow(0);
-      console.log("openingg");
-      // Use setTimeout to make it work on Mobile
-      setTimeout(() => {
-        window.open(listingURL, "_top");
-      });
+      console.log("seee....");
+      // Use setTimeout to make it work on Mobile? have removed for now
+      window.open(listingURL, "_top");
     }
+  };
+
+  const handleTapEnd = (event: any) => {
+    console.log("tapend");
+    event.preventDefault();
   };
 
   const handleHoverOn = () => {
@@ -93,18 +98,24 @@ export default function RentalMarker(props: Props) {
   const price = property.PriceDisplay;
   const infoWindowOpen = currInfoWindow == property.ListingId;
   return (
-    <AdvancedMarker position={coords} draggable={true} zIndex={Number(infoWindowOpen) * 5}>
-      <div
-        className={`flex flex-col justify-end items-center `}
-        onTouchStart={handleTap}
-        onTouchEnd={() => {}}
-      >
-        <Link
-          href={listingURL}
-          target="_blank"
+    <AdvancedMarker position={coords} onClick={() => {}} zIndex={Number(infoWindowOpen) * 5}>
+      <div className={`flex flex-col justify-end items-center `}>
+        <a
           className={
             "flex flex-col justify-end items-center text-base hover:text-lg hover:pb-1  duration-150"
           }
+          onClick={(event) => {
+            handleTap(event);
+          }}
+          onAuxClick={() => {
+            window.open(listingURL, "_blank");
+          }}
+          onTouchStart={(event) => {
+            handleTap(event);
+          }}
+          onTouchEnd={(event) => {
+            handleTapEnd(event);
+          }}
           style={
             !history[property.ListingId]
               ? { filter: `drop-shadow(0.0rem 0.0rem 0.2rem ${listingColour})` }
@@ -120,7 +131,7 @@ export default function RentalMarker(props: Props) {
             {reformatTitle(property.Title) + ".00 pw"}
           </div>
           <div className="marker-triangle" style={{ borderTop: `0.5rem solid ${moneyBackground}` }}></div>
-        </Link>
+        </a>
         {/* <Link href={listingURL} target="_blank" className="marker-info text-base"> */}
         <Link href={listingURL} target="_blank" className="marker-info text-base">
           <RentalInfo infoWindowOpen={infoWindowOpen} details={property} />
