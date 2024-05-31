@@ -65,14 +65,9 @@ export default function RentalMarker(props: Props) {
 
   const handleTap = (event: any) => {
     console.log("window open?", infoWindowOpen);
-    setCurrInfoWindow(property.ListingId);
     event.preventDefault();
     console.log("TAP A TAP TAP");
-    if (!infoWindowOpen) {
-      const newHist: History = { ...history };
-      newHist[property.ListingId] = true;
-      setHistory(newHist);
-    }
+
     if (infoWindowOpen) {
       console.log("seee....");
       // Use setTimeout to make it work on Mobile? have removed for now
@@ -81,8 +76,17 @@ export default function RentalMarker(props: Props) {
   };
 
   const handleTapEnd = (event: any) => {
+    setCurrInfoWindow(property.ListingId);
+    const newHist: History = { ...history };
+    newHist[property.ListingId] = true;
+    setHistory(newHist);
     console.log("tapend");
     event.preventDefault();
+  };
+
+  const handleClick = (event: any) => {
+    console.log("CLICK!!!");
+    handleTap(event);
   };
 
   const handleHoverOn = () => {
@@ -105,7 +109,7 @@ export default function RentalMarker(props: Props) {
             "flex flex-col justify-end items-center text-base hover:text-lg hover:pb-1  duration-150"
           }
           onClick={(event) => {
-            handleTap(event);
+            handleClick(event);
           }}
           onAuxClick={() => {
             window.open(listingURL, "_blank");
@@ -133,9 +137,9 @@ export default function RentalMarker(props: Props) {
           <div className="marker-triangle" style={{ borderTop: `0.5rem solid ${moneyBackground}` }}></div>
         </a>
         {/* <Link href={listingURL} target="_blank" className="marker-info text-base"> */}
-        <Link href={listingURL} target="_blank" className="marker-info text-base">
+        <div className="marker-info text-base">
           <RentalInfo infoWindowOpen={infoWindowOpen} details={property} />
-        </Link>
+        </div>
       </div>
     </AdvancedMarker>
   );
