@@ -14,7 +14,8 @@ import ModeSwitch from "../sidebar/ModeSwitch";
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 export default function MapHandler() {
-  const startingCoords = { lat: -43.5348688, lng: 172.642298 };
+  const startingCoords = useStoredCoords();
+  // TODO : calculate starting bounds from starting coords
   const [bounds, setBounds] = useState({
     south: -43.549928803642516,
     west: 172.6249178523369,
@@ -42,6 +43,7 @@ export default function MapHandler() {
 
   const handleCameraChange = (ev: MapCameraChangedEvent) => {
     setBounds(ev.detail.bounds);
+    localStorage.setItem("lastCoords", JSON.stringify(ev.detail.center));
   };
 
   useEffect(() => {
@@ -106,10 +108,29 @@ export default function MapHandler() {
 }
 
 const useHistory = () => {
-  let loadedHist = localStorage.getItem("history");
-  if (loadedHist == null) {
-    loadedHist = "{}";
-  }
-  const [history, setHistory] = useState(JSON.parse(loadedHist));
-  return [history, setHistory];
+  const [loadedHist, setLoadedHist] = useState({});
+  useEffect(() => {
+    const storedHist = localStorage.getItem("history");
+    if (storedHist == null) {
+      return;
+    }
+    setLoadedHist(JSON.parse(storedHist));
+  }, []);
+
+  return [loadedHist, setLoadedHist];
+};
+
+const useStoredCoords = () => {
+  const [coords, setCoords] = useState('{"lat":-43.5348688,"lng":172.642298}');
+
+  // component is mounted and window is available
+  useEffect(() => {
+    const storedCoords = localStorage.getItem("lastCoords");
+    if (storedCoords == null) {
+      return;
+    }
+    setCoords(storedCoords);
+  }, []);
+
+  return JSON.parse(coords);
 };
