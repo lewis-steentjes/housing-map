@@ -117,7 +117,7 @@ const useHistory = () => {
     setLoadedHist(JSON.parse(storedHist));
   }, []);
 
-  return [loadedHist, setLoadedHist];
+  return useState(loadedHist);
 };
 
 const useStoredCoords = () => {
