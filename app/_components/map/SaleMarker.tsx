@@ -68,6 +68,7 @@ export default function SaleMarker(props: Props) {
       const newHist: History = { ...history };
       newHist[property.ListingId] = true;
       setHistory(newHist);
+      localStorage.setItem("history", JSON.stringify(newHist));
     }
   };
 
@@ -80,6 +81,7 @@ export default function SaleMarker(props: Props) {
     const newHist: History = { ...history };
     newHist[property.ListingId] = true;
     setHistory(newHist);
+    localStorage.setItem("history", JSON.stringify(newHist));
   };
   const price = property.PriceDisplay;
   const infoWindowOpen = currInfoWindow == property.ListingId;

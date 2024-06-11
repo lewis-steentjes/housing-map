@@ -22,7 +22,7 @@ export default function MapHandler() {
     east: 172.6596792811699,
   });
   const [prevBounds, setPrevBounds] = useState(bounds);
-  const [history, setHistory] = useState({});
+  const [history, setHistory] = useHistory();
   const [currInfoWindow, setCurrInfoWindow] = useState(0);
   const [properties, setProperties] = useState<Listing[]>([]);
   const { currentMode } = useContext(ModeContext);
@@ -104,3 +104,12 @@ export default function MapHandler() {
     </APIProvider>
   );
 }
+
+const useHistory = () => {
+  let loadedHist = localStorage.getItem("history");
+  if (loadedHist == null) {
+    loadedHist = "{}";
+  }
+  const [history, setHistory] = useState(JSON.parse(loadedHist));
+  return [history, setHistory];
+};

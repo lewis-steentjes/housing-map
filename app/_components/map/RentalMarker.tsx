@@ -64,12 +64,9 @@ export default function RentalMarker(props: Props) {
   const listingColour = freshnessToColour(freshness);
 
   const handleTap = (event: any) => {
-    console.log("window open?", infoWindowOpen);
     event.preventDefault();
-    console.log("TAP A TAP TAP");
 
     if (infoWindowOpen) {
-      console.log("seee....");
       // Use setTimeout to make it work on Mobile? have removed for now
       window.open(listingURL, "_top");
     }
@@ -80,12 +77,11 @@ export default function RentalMarker(props: Props) {
     const newHist: History = { ...history };
     newHist[property.ListingId] = true;
     setHistory(newHist);
-    console.log("tapend");
+    localStorage.setItem("history", JSON.stringify(newHist));
     event.preventDefault();
   };
 
   const handleClick = (event: any) => {
-    console.log("CLICK!!!");
     handleTap(event);
   };
 
@@ -98,6 +94,7 @@ export default function RentalMarker(props: Props) {
     const newHist: History = { ...history };
     newHist[property.ListingId] = true;
     setHistory(newHist);
+    localStorage.setItem("history", JSON.stringify(newHist));
   };
   const price = property.PriceDisplay;
   const infoWindowOpen = currInfoWindow == property.ListingId;
