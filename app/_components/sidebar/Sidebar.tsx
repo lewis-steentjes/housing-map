@@ -24,7 +24,13 @@ export default function Sidebar(props: Props) {
       <h1 className="text-3xl font-bold underline ml-2">Filters: </h1>
       {currentMode == "Rent" ? <RentalOptions /> : <PurchaseOptions />}
       <div className="grow"></div>
-      <div className=""></div>
+      <div className="">
+        <p>
+          Log in to save your previous map location, filter settings and track viewed listings. <br />
+          <span className="italic text-red-700">Not yet implemented</span>
+        </p>
+        <LogIn />
+      </div>
     </div>
   );
 }

@@ -107,7 +107,7 @@ export default function MapHandler() {
   );
 }
 
-const useHistory = () => {
+const useHistory = (): any => {
   const [loadedHist, setLoadedHist] = useState({});
   useEffect(() => {
     const storedHist = localStorage.getItem("history");
@@ -116,8 +116,7 @@ const useHistory = () => {
     }
     setLoadedHist(JSON.parse(storedHist));
   }, []);
-
-  return useState(loadedHist);
+  return [loadedHist, setLoadedHist];
 };
 
 const useStoredCoords = () => {
@@ -126,6 +125,7 @@ const useStoredCoords = () => {
   // component is mounted and window is available
   useEffect(() => {
     const storedCoords = localStorage.getItem("lastCoords");
+
     if (storedCoords == null) {
       return;
     }
